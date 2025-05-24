@@ -26,6 +26,13 @@ export function SalesChart() {
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={data}>
+            <defs>
+              <linearGradient id="salesGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="var(--gradient-start)" />
+                <stop offset="50%" stopColor="var(--gradient-middle)" />
+                <stop offset="100%" stopColor="var(--gradient-end)" />
+              </linearGradient>
+            </defs>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" />
             <YAxis />
@@ -33,16 +40,9 @@ export function SalesChart() {
             <Line 
               type="monotone" 
               dataKey="sales" 
-              stroke="url(#gradient)" 
+              stroke="url(#salesGradient)" 
               strokeWidth={3}
             />
-            <defs>
-              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="var(--gradient-start)" />
-                <stop offset="50%" stopColor="var(--gradient-middle)" />
-                <stop offset="100%" stopColor="var(--gradient-end)" />
-              </linearGradient>
-            </defs>
           </LineChart>
         </ResponsiveContainer>
       </CardContent>

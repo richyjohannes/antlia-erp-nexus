@@ -23,6 +23,20 @@ export function InventoryChart() {
       <CardContent>
         <ResponsiveContainer width="100%" height={250}>
           <PieChart>
+            <defs>
+              <linearGradient id="pieGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="var(--gradient-start)" />
+                <stop offset="100%" stopColor="var(--gradient-middle)" />
+              </linearGradient>
+              <linearGradient id="pieGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="var(--gradient-middle)" />
+                <stop offset="100%" stopColor="var(--gradient-end)" />
+              </linearGradient>
+              <linearGradient id="pieGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="var(--gradient-end)" />
+                <stop offset="100%" stopColor="var(--gradient-start)" />
+              </linearGradient>
+            </defs>
             <Pie
               data={data}
               cx="50%"
@@ -30,9 +44,9 @@ export function InventoryChart() {
               outerRadius={80}
               dataKey="value"
             >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
+              <Cell fill="url(#pieGradient1)" />
+              <Cell fill="url(#pieGradient2)" />
+              <Cell fill="url(#pieGradient3)" />
             </Pie>
             <Legend />
           </PieChart>

@@ -2,7 +2,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 
 export function ProductionMetrics() {
@@ -43,10 +42,15 @@ export function ProductionMetrics() {
                 </Badge>
               </div>
             </div>
-            <Progress 
-              value={metric.value} 
-              className="h-2"
-            />
+            <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+              <div 
+                className="h-full rounded-full transition-all duration-300"
+                style={{
+                  width: `${metric.value}%`,
+                  background: `linear-gradient(to right, var(--gradient-start), var(--gradient-middle))`
+                }}
+              />
+            </div>
             <div className="text-xs text-gray-500">
               Target: {metric.target}%
             </div>

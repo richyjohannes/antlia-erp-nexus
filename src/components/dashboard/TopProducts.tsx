@@ -30,13 +30,15 @@ export function TopProducts() {
                 <span className="text-sm font-medium">{product.name}</span>
                 <span className="text-sm text-gray-500">{product.amount}</span>
               </div>
-              <Progress 
-                value={product.sales} 
-                className="h-2"
-                style={{
-                  background: `linear-gradient(to right, var(--gradient-start), var(--gradient-middle), var(--gradient-end))`
-                }}
-              />
+              <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                <div 
+                  className="h-full rounded-full transition-all duration-300"
+                  style={{
+                    width: `${product.sales}%`,
+                    background: `linear-gradient(to right, var(--gradient-start), var(--gradient-middle), var(--gradient-end))`
+                  }}
+                />
+              </div>
             </div>
           </div>
         ))}

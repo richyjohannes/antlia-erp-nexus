@@ -26,18 +26,22 @@ export function MonthlyRevenueChart() {
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={data}>
+            <defs>
+              <linearGradient id="revenueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="var(--gradient-start)" />
+                <stop offset="100%" stopColor="var(--gradient-middle)" />
+              </linearGradient>
+              <linearGradient id="expensesGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="var(--gradient-middle)" />
+                <stop offset="100%" stopColor="var(--gradient-end)" />
+              </linearGradient>
+            </defs>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="revenue" fill="var(--gradient-start)" />
-            <Bar dataKey="expenses" fill="var(--gradient-end)" />
-            <defs>
-              <linearGradient id="revenueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="var(--gradient-start)" />
-                <stop offset="100%" stopColor="var(--gradient-middle)" />
-              </linearGradient>
-            </defs>
+            <Bar dataKey="revenue" fill="url(#revenueGradient)" />
+            <Bar dataKey="expenses" fill="url(#expensesGradient)" />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>
