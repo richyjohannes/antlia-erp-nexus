@@ -20,8 +20,8 @@ export function LoadingScreen() {
         </div>
         
         {/* Loading Bar */}
-        <div className="w-64 h-2 mx-auto bg-gray-200 rounded-full overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-[#05b2fd] via-[#6f42c1] to-[#e17a9] rounded-full animate-pulse loading-bar"></div>
+        <div className="w-64 h-2 mx-auto bg-gray-200 rounded-full overflow-hidden relative">
+          <div className="h-full bg-gradient-to-r from-[#05b2fd] via-[#6f42c1] to-[#e17a9] rounded-full absolute animate-[loading_2s_ease-in-out_infinite]"></div>
         </div>
         
         {/* Loading Text */}
@@ -29,24 +29,6 @@ export function LoadingScreen() {
           Loading...
         </div>
       </div>
-      
-      <style jsx>{`
-        .loading-bar {
-          animation: loading 2s ease-in-out infinite;
-        }
-        
-        @keyframes loading {
-          0% {
-            transform: translateX(-100%);
-          }
-          50% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(100%);
-          }
-        }
-      `}</style>
     </div>
   );
 }
