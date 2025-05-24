@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { DashboardStats } from '@/components/dashboard/DashboardStats';
 import { SalesChart } from '@/components/dashboard/SalesChart';
 import { RecentOrders } from '@/components/dashboard/RecentOrders';
@@ -11,8 +11,23 @@ import { MonthlyRevenue } from '@/components/dashboard/MonthlyRevenue';
 import { OrderTrends } from '@/components/dashboard/OrderTrends';
 import { ProductionMetrics } from '@/components/dashboard/ProductionMetrics';
 import { FinancialOverview } from '@/components/dashboard/FinancialOverview';
+import { LoadingScreen } from '@/components/ui/loading';
 
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000); // Show loading for 3 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <div className="p-6 space-y-6">
       <DashboardStats />

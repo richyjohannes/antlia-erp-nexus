@@ -32,7 +32,8 @@ export const ColorProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   });
 
   const updateColors = (newColors: Partial<ColorScheme>) => {
-    setColors(prev => ({ ...prev, ...newColors }));
+    const updatedColors = { ...colors, ...newColors };
+    setColors(updatedColors);
   };
 
   const resetColors = () => {

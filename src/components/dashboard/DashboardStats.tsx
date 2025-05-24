@@ -36,7 +36,13 @@ export function DashboardStats() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {stats.map((stat, index) => (
-        <Card key={index} className="hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+        <Card 
+          key={index} 
+          className="hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+          style={{
+            '--gradient-border': 'linear-gradient(to right, var(--gradient-start), var(--gradient-middle), var(--gradient-end))'
+          } as React.CSSProperties}
+        >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-gray-600">
               {stat.title}
@@ -50,7 +56,12 @@ export function DashboardStats() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold bg-gradient-to-r from-[#05b2fd] via-[#6f42c1] to-[#e17a9] bg-clip-text text-transparent">
+            <div 
+              className="text-3xl font-bold bg-clip-text text-transparent"
+              style={{
+                background: 'linear-gradient(to right, var(--gradient-start), var(--gradient-middle), var(--gradient-end))'
+              }}
+            >
               {stat.value}
             </div>
           </CardContent>
