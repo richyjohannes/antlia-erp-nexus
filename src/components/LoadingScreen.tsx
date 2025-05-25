@@ -81,7 +81,7 @@ export function LoadingScreen() {
         </div>
       </div>
       
-      <style jsx>{`
+      <style>{`
         @keyframes loading {
           0% { transform: translateX(-100%); }
           50% { transform: translateX(0%); }
