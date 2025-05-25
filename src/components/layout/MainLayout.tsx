@@ -3,6 +3,7 @@ import React from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from './AppSidebar';
 import { AppHeader } from './AppHeader';
+import { Footer } from './Footer';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ export function MainLayout({ children }: MainLayoutProps) {
           <main className="flex-1 bg-gray-50">
             {children}
           </main>
+          <Footer />
         </div>
       </div>
     </SidebarProvider>

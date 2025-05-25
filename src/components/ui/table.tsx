@@ -1,4 +1,6 @@
+
 import * as React from "react"
+import { useColors } from '@/contexts/ColorContext';
 
 import { cn } from "@/lib/utils"
 
@@ -19,9 +21,20 @@ Table.displayName = "Table"
 const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <thead ref={ref} className={cn("[&_tr]:border-b", className)} {...props} />
-))
+>(({ className, ...props }, ref) => {
+  const { colors } = useColors();
+  
+  return (
+    <thead 
+      ref={ref} 
+      className={cn("[&_tr]:border-b", className)} 
+      style={{
+        background: `linear-gradient(135deg, ${colors.gradientStart}20, ${colors.gradientMiddle}20)`
+      }}
+      {...props} 
+    />
+  );
+})
 TableHeader.displayName = "TableHeader"
 
 const TableBody = React.forwardRef<
@@ -39,46 +52,74 @@ TableBody.displayName = "TableBody"
 const TableFooter = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <tfoot
-    ref={ref}
-    className={cn(
-      "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0",
-      className
-    )}
-    {...props}
-  />
-))
+>(({ className, ...props }, ref) => {
+  const { colors } = useColors();
+  
+  return (
+    <tfoot
+      ref={ref}
+      className={cn(
+        "border-t font-medium [&>tr]:last:border-b-0",
+        className
+      )}
+      style={{
+        background: `linear-gradient(135deg, ${colors.gradientStart}10, ${colors.gradientMiddle}10)`
+      }}
+      {...props}
+    />
+  );
+})
 TableFooter.displayName = "TableFooter"
 
 const TableRow = React.forwardRef<
   HTMLTableRowElement,
   React.HTMLAttributes<HTMLTableRowElement>
->(({ className, ...props }, ref) => (
-  <tr
-    ref={ref}
-    className={cn(
-      "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
-      className
-    )}
-    {...props}
-  />
-))
+>(({ className, ...props }, ref) => {
+  const { colors } = useColors();
+  
+  return (
+    <tr
+      ref={ref}
+      className={cn(
+        "border-b transition-colors data-[state=selected]:bg-muted",
+        className
+      )}
+      style={{
+        '--hover-gradient': `linear-gradient(135deg, ${colors.gradientStart}08, ${colors.gradientMiddle}08)`
+      } as React.CSSProperties}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = `linear-gradient(135deg, ${colors.gradientStart}08, ${colors.gradientMiddle}08)`;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = '';
+      }}
+      {...props}
+    />
+  );
+})
 TableRow.displayName = "TableRow"
 
 const TableHead = React.forwardRef<
   HTMLTableCellElement,
   React.ThHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <th
-    ref={ref}
-    className={cn(
-      "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
-      className
-    )}
-    {...props}
-  />
-))
+>(({ className, ...props }, ref) => {
+  const { colors } = useColors();
+  
+  return (
+    <th
+      ref={ref}
+      className={cn(
+        "h-12 px-4 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0",
+        className
+      )}
+      style={{
+        color: colors.gradientStart,
+        fontWeight: '600'
+      }}
+      {...props}
+    />
+  );
+})
 TableHead.displayName = "TableHead"
 
 const TableCell = React.forwardRef<

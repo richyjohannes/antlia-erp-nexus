@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ColorProvider } from '@/contexts/ColorContext';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { ColorSettingsPage } from '@/components/ColorSettingsPage';
+import { LoginPage } from '@/components/LoginPage';
 import { UnderDevelopment } from '@/components/UnderDevelopment';
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -23,6 +24,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={
               <MainLayout>
                 <Index />
