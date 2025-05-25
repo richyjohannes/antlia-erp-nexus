@@ -142,10 +142,7 @@ export function LoginPage() {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="h-12 border-2 border-gray-200 focus:border-transparent focus:ring-2 focus:ring-offset-2 rounded-xl text-lg"
-                    style={{
-                      focusRingColor: '#05b2fd'
-                    }}
+                    className="h-12 border-2 border-gray-200 focus:border-transparent focus:ring-2 focus:ring-offset-2 rounded-xl text-lg focus:ring-blue-400"
                     placeholder="Masukkan username, email, atau telepon"
                     required
                   />
@@ -159,10 +156,7 @@ export function LoginPage() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-12 border-2 border-gray-200 focus:border-transparent focus:ring-2 focus:ring-offset-2 rounded-xl text-lg"
-                    style={{
-                      focusRingColor: '#05b2fd'
-                    }}
+                    className="h-12 border-2 border-gray-200 focus:border-transparent focus:ring-2 focus:ring-offset-2 rounded-xl text-lg focus:ring-blue-400"
                     placeholder="Masukkan password"
                     required
                   />
