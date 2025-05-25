@@ -5,25 +5,25 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
-export function MonthlyRevenueChart() {
+interface HorizontalBarChartProps {
+  title: string;
+  data: Array<{
+    name: string;
+    value: number;
+    target?: number;
+  }>;
+}
+
+export function HorizontalBarChart({ title, data }: HorizontalBarChartProps) {
   const { t } = useTranslation();
 
-  const data = [
-    { month: 'Jan', revenue: 4200, expenses: 2400 },
-    { month: 'Feb', revenue: 3800, expenses: 2200 },
-    { month: 'Mar', revenue: 5200, expenses: 2800 },
-    { month: 'Apr', revenue: 4800, expenses: 2600 },
-    { month: 'May', revenue: 6200, expenses: 3200 },
-    { month: 'Jun', revenue: 5800, expenses: 3000 },
-  ];
-
   const chartConfig = {
-    revenue: {
-      label: "Revenue",
+    value: {
+      label: "Actual",
       color: "var(--gradient-start)",
     },
-    expenses: {
-      label: "Expenses",
+    target: {
+      label: "Target", 
       color: "var(--gradient-middle)",
     },
   };
@@ -32,48 +32,59 @@ export function MonthlyRevenueChart() {
     <Card className="border-l-4 border-l-transparent hover:border-l-4 hover:border-l-[var(--color-primary)] transition-all duration-300 shadow-lg hover:shadow-xl">
       <CardHeader>
         <CardTitle className="text-lg font-semibold bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)] bg-clip-text text-transparent">
-          {t('monthlyRevenue')}
+          {title}
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-[300px]">
+        <ChartContainer config={chartConfig} className="h-[350px]">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data}>
+            <BarChart
+              data={data}
+              layout="horizontal"
+              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+            >
               <defs>
-                <linearGradient id="revenueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <linearGradient id="barGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="var(--gradient-start)" />
-                  <stop offset="100%" stopColor="var(--gradient-middle)" />
+                  <stop offset="50%" stopColor="var(--gradient-middle)" />
+                  <stop offset="100%" stopColor="var(--gradient-end)" />
                 </linearGradient>
-                <linearGradient id="expensesGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <linearGradient id="barGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="var(--gradient-middle)" />
                   <stop offset="100%" stopColor="var(--gradient-end)" />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
               <XAxis 
-                dataKey="month" 
+                type="number" 
                 axisLine={false}
                 tickLine={false}
                 tick={{ fontSize: 12, fill: '#666' }}
               />
               <YAxis 
+                type="category" 
+                dataKey="name"
                 axisLine={false}
                 tickLine={false}
                 tick={{ fontSize: 12, fill: '#666' }}
+                width={100}
               />
               <ChartTooltip content={<ChartTooltipContent />} />
               <Bar 
-                dataKey="revenue" 
-                fill="url(#revenueGradient)" 
-                radius={[4, 4, 0, 0]}
+                dataKey="value" 
+                fill="url(#barGradient1)"
+                radius={[0, 8, 8, 0]}
                 className="drop-shadow-sm hover:drop-shadow-md transition-all duration-200"
               />
-              <Bar 
-                dataKey="expenses" 
-                fill="url(#expensesGradient)" 
-                radius={[4, 4, 0, 0]}
-                className="drop-shadow-sm hover:drop-shadow-md transition-all duration-200"
-              />
+              {data.some(item => item.target) && (
+                <Bar 
+                  dataKey="target" 
+                  fill="url(#barGradient2)"
+                  fillOpacity={0.7}
+                  radius={[0, 8, 8, 0]}
+                  className="drop-shadow-sm hover:drop-shadow-md transition-all duration-200"
+                />
+              )}
             </BarChart>
           </ResponsiveContainer>
         </ChartContainer>

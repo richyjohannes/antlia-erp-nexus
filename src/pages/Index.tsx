@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { DashboardStats } from '@/components/dashboard/DashboardStats';
 import { SalesChart } from '@/components/dashboard/SalesChart';
@@ -11,6 +10,8 @@ import { MonthlyRevenueChart } from '@/components/dashboard/MonthlyRevenueChart'
 import { ProductionMetrics } from '@/components/dashboard/ProductionMetrics';
 import { FinancialOverview } from '@/components/dashboard/FinancialOverview';
 import { LoadingScreen } from '@/components/LoadingScreen';
+import { PieChart3D } from '@/components/dashboard/PieChart3D';
+import { HorizontalBarChart } from '@/components/dashboard/HorizontalBarChart';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +29,23 @@ const Index = () => {
     return <LoadingScreen />;
   }
 
+  // Sample data for new charts
+  const departmentData = [
+    { name: 'Production', value: 35 },
+    { name: 'Sales', value: 25 },
+    { name: 'Marketing', value: 20 },
+    { name: 'Operations', value: 15 },
+    { name: 'Support', value: 5 }
+  ];
+
+  const performanceData = [
+    { name: 'Sales Team', value: 85, target: 90 },
+    { name: 'Production', value: 92, target: 85 },
+    { name: 'Quality Control', value: 78, target: 80 },
+    { name: 'Customer Service', value: 95, target: 90 },
+    { name: 'Logistics', value: 88, target: 85 }
+  ];
+
   return (
     <div className="p-6">
       <DashboardStats />
@@ -40,6 +58,18 @@ const Index = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <MonthlyRevenueChart />
         <InventoryChart />
+      </div>
+      
+      {/* New Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <PieChart3D 
+          title="Department Distribution"
+          data={departmentData}
+        />
+        <HorizontalBarChart 
+          title="Team Performance vs Target"
+          data={performanceData}
+        />
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">

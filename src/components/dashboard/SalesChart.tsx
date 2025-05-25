@@ -2,7 +2,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 export function SalesChart() {
   const { t } = useTranslation();
@@ -16,35 +17,55 @@ export function SalesChart() {
     { month: 'Jun', sales: 5500 },
   ];
 
+  const chartConfig = {
+    sales: {
+      label: "Sales",
+      color: "var(--gradient-start)",
+    },
+  };
+
   return (
-    <Card className="col-span-1 lg:col-span-2">
+    <Card className="col-span-1 lg:col-span-2 shadow-lg hover:shadow-xl transition-shadow duration-300">
       <CardHeader>
         <CardTitle className="text-lg font-semibold bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)] bg-clip-text text-transparent">
           {t('salesOverview')}
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={data}>
-            <defs>
-              <linearGradient id="salesGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="var(--gradient-start)" />
-                <stop offset="50%" stopColor="var(--gradient-middle)" />
-                <stop offset="100%" stopColor="var(--gradient-end)" />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
-            <YAxis />
-            <Tooltip />
-            <Line 
-              type="monotone" 
-              dataKey="sales" 
-              stroke="url(#salesGradient)" 
-              strokeWidth={3}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+        <ChartContainer config={chartConfig} className="h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={data}>
+              <defs>
+                <linearGradient id="salesGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="var(--gradient-start)" />
+                  <stop offset="50%" stopColor="var(--gradient-middle)" />
+                  <stop offset="100%" stopColor="var(--gradient-end)" />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
+              <XAxis 
+                dataKey="month" 
+                axisLine={false}
+                tickLine={false}
+                tick={{ fontSize: 12, fill: '#666' }}
+              />
+              <YAxis 
+                axisLine={false}
+                tickLine={false}
+                tick={{ fontSize: 12, fill: '#666' }}
+              />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Line 
+                type="monotone" 
+                dataKey="sales" 
+                stroke="url(#salesGradient)" 
+                strokeWidth={3}
+                dot={{ fill: 'var(--gradient-start)', strokeWidth: 2, r: 4 }}
+                className="drop-shadow-sm"
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </ChartContainer>
       </CardContent>
     </Card>
   );
