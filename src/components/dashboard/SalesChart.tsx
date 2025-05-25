@@ -25,16 +25,16 @@ export function SalesChart() {
   };
 
   return (
-    <Card className="col-span-1 lg:col-span-2 shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <CardHeader>
-        <CardTitle className="text-lg font-semibold bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)] bg-clip-text text-transparent">
+    <Card className="col-span-1 lg:col-span-2 shadow-lg hover:shadow-xl transition-shadow duration-300 w-full">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base sm:text-lg font-semibold bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)] bg-clip-text text-transparent">
           {t('salesOverview')}
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="h-[300px]">
+      <CardContent className="p-2 sm:p-6">
+        <ChartContainer config={chartConfig} className="h-[200px] sm:h-[250px] lg:h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data}>
+            <LineChart data={data} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
               <defs>
                 <linearGradient id="salesGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="var(--gradient-start)" />
@@ -47,20 +47,23 @@ export function SalesChart() {
                 dataKey="month" 
                 axisLine={false}
                 tickLine={false}
-                tick={{ fontSize: 12, fill: '#666' }}
+                tick={{ fontSize: 10, fill: '#666' }}
+                className="text-xs"
               />
               <YAxis 
                 axisLine={false}
                 tickLine={false}
-                tick={{ fontSize: 12, fill: '#666' }}
+                tick={{ fontSize: 10, fill: '#666' }}
+                className="text-xs"
+                width={40}
               />
               <ChartTooltip content={<ChartTooltipContent />} />
               <Line 
                 type="monotone" 
                 dataKey="sales" 
                 stroke="url(#salesGradient)" 
-                strokeWidth={3}
-                dot={{ fill: 'var(--gradient-start)', strokeWidth: 2, r: 4 }}
+                strokeWidth={2}
+                dot={{ fill: 'var(--gradient-start)', strokeWidth: 2, r: 3 }}
                 className="drop-shadow-sm"
               />
             </LineChart>

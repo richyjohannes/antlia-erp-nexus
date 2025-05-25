@@ -29,16 +29,16 @@ export function MonthlyRevenueChart() {
   };
 
   return (
-    <Card className="border-l-4 border-l-transparent hover:border-l-4 hover:border-l-[var(--color-primary)] transition-all duration-300 shadow-lg hover:shadow-xl">
-      <CardHeader>
-        <CardTitle className="text-lg font-semibold bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)] bg-clip-text text-transparent">
+    <Card className="border-l-4 border-l-transparent hover:border-l-4 hover:border-l-[var(--color-primary)] transition-all duration-300 shadow-lg hover:shadow-xl w-full">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base sm:text-lg font-semibold bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)] bg-clip-text text-transparent">
           {t('monthlyRevenue')}
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="h-[300px]">
+      <CardContent className="p-2 sm:p-6">
+        <ChartContainer config={chartConfig} className="h-[200px] sm:h-[250px] lg:h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data}>
+            <BarChart data={data} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
               <defs>
                 <linearGradient id="revenueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                   <stop offset="0%" stopColor="var(--gradient-start)" />
@@ -54,25 +54,30 @@ export function MonthlyRevenueChart() {
                 dataKey="month" 
                 axisLine={false}
                 tickLine={false}
-                tick={{ fontSize: 12, fill: '#666' }}
+                tick={{ fontSize: 10, fill: '#666' }}
+                className="text-xs"
               />
               <YAxis 
                 axisLine={false}
                 tickLine={false}
-                tick={{ fontSize: 12, fill: '#666' }}
+                tick={{ fontSize: 10, fill: '#666' }}
+                className="text-xs"
+                width={40}
               />
               <ChartTooltip content={<ChartTooltipContent />} />
               <Bar 
                 dataKey="revenue" 
                 fill="url(#revenueGradient)" 
-                radius={[4, 4, 0, 0]}
+                radius={[2, 2, 0, 0]}
                 className="drop-shadow-sm hover:drop-shadow-md transition-all duration-200"
+                maxBarSize={40}
               />
               <Bar 
                 dataKey="expenses" 
                 fill="url(#expensesGradient)" 
-                radius={[4, 4, 0, 0]}
+                radius={[2, 2, 0, 0]}
                 className="drop-shadow-sm hover:drop-shadow-md transition-all duration-200"
+                maxBarSize={40}
               />
             </BarChart>
           </ResponsiveContainer>

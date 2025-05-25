@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { DashboardStats } from '@/components/dashboard/DashboardStats';
 import { SalesChart } from '@/components/dashboard/SalesChart';
@@ -47,21 +48,25 @@ const Index = () => {
   ];
 
   return (
-    <div className="p-6">
+    <div className="p-2 sm:p-4 lg:p-6 space-y-4 sm:space-y-6 w-full overflow-x-hidden">
       <DashboardStats />
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <SalesChart />
-        <TopProducts />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="lg:col-span-2 w-full">
+          <SalesChart />
+        </div>
+        <div className="w-full">
+          <TopProducts />
+        </div>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <MonthlyRevenueChart />
         <InventoryChart />
       </div>
       
       {/* New Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <PieChart3D 
           title="Department Distribution"
           data={departmentData}
@@ -72,15 +77,15 @@ const Index = () => {
         />
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <RecentOrders />
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6 w-full">
           <LowStockAlert />
           <PendingTasks />
         </div>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <ProductionMetrics />
         <FinancialOverview />
       </div>

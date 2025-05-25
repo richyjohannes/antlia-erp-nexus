@@ -30,14 +30,14 @@ export function InventoryChart() {
   };
 
   return (
-    <Card className="border-l-4 border-l-transparent hover:border-l-4 hover:border-l-[var(--color-primary)] transition-all duration-300 shadow-lg hover:shadow-xl">
-      <CardHeader>
-        <CardTitle className="text-lg font-semibold bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)] bg-clip-text text-transparent">
+    <Card className="border-l-4 border-l-transparent hover:border-l-4 hover:border-l-[var(--color-primary)] transition-all duration-300 shadow-lg hover:shadow-xl w-full">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base sm:text-lg font-semibold bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)] bg-clip-text text-transparent">
           {t('inventoryDistribution')}
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="h-[250px]">
+      <CardContent className="p-2 sm:p-6">
+        <ChartContainer config={chartConfig} className="h-[200px] sm:h-[220px] lg:h-[250px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <defs>
@@ -57,8 +57,8 @@ export function InventoryChart() {
               <Pie
                 data={data}
                 cx="50%"
-                cy="50%"
-                outerRadius={80}
+                cy="45%"
+                outerRadius="70%"
                 dataKey="value"
                 stroke="rgba(255,255,255,0.8)"
                 strokeWidth={2}
@@ -69,7 +69,12 @@ export function InventoryChart() {
                 <Cell fill="url(#pieGradient3)" />
               </Pie>
               <ChartTooltip content={<ChartTooltipContent />} />
-              <Legend />
+              <Legend 
+                verticalAlign="bottom" 
+                height={36}
+                iconType="circle"
+                wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }}
+              />
             </PieChart>
           </ResponsiveContainer>
         </ChartContainer>

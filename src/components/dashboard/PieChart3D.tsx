@@ -34,14 +34,14 @@ export function PieChart3D({ title, data }: PieChart3DProps) {
   }, {} as any);
 
   return (
-    <Card className="border-l-4 border-l-transparent hover:border-l-4 hover:border-l-[var(--color-primary)] transition-all duration-300 shadow-lg hover:shadow-xl">
-      <CardHeader>
-        <CardTitle className="text-lg font-semibold bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)] bg-clip-text text-transparent">
+    <Card className="border-l-4 border-l-transparent hover:border-l-4 hover:border-l-[var(--color-primary)] transition-all duration-300 shadow-lg hover:shadow-xl w-full">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base sm:text-lg font-semibold bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)] bg-clip-text text-transparent">
           {title}
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="h-[350px]">
+      <CardContent className="p-2 sm:p-6">
+        <ChartContainer config={chartConfig} className="h-[250px] sm:h-[300px] lg:h-[350px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <defs>
@@ -56,9 +56,9 @@ export function PieChart3D({ title, data }: PieChart3DProps) {
               <Pie
                 data={data}
                 cx="50%"
-                cy="45%"
-                outerRadius={100}
-                innerRadius={40}
+                cy="40%"
+                outerRadius="65%"
+                innerRadius="25%"
                 dataKey="value"
                 stroke="rgba(255,255,255,0.8)"
                 strokeWidth={2}
@@ -76,9 +76,9 @@ export function PieChart3D({ title, data }: PieChart3DProps) {
               <Pie
                 data={data}
                 cx="50%"
-                cy="48%"
-                outerRadius={100}
-                innerRadius={40}
+                cy="43%"
+                outerRadius="65%"
+                innerRadius="25%"
                 dataKey="value"
                 fill="rgba(0,0,0,0.1)"
                 stroke="none"
@@ -89,7 +89,7 @@ export function PieChart3D({ title, data }: PieChart3DProps) {
                 verticalAlign="bottom" 
                 height={36}
                 iconType="circle"
-                wrapperStyle={{ paddingTop: '20px' }}
+                wrapperStyle={{ fontSize: '12px', paddingTop: '15px' }}
               />
             </PieChart>
           </ResponsiveContainer>
