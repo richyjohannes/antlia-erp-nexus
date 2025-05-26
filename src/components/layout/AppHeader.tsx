@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { 
@@ -13,16 +14,21 @@ import {
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Bell, User } from 'lucide-react';
+import { Bell, User, LogOut } from 'lucide-react';
 
 export function AppHeader() {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const [isIndonesian, setIsIndonesian] = useState(i18n.language === 'id');
 
   const toggleLanguage = (checked: boolean) => {
     const newLang = checked ? 'id' : 'en';
     i18n.changeLanguage(newLang);
     setIsIndonesian(checked);
+  };
+
+  const handleLogout = () => {
+    navigate('/login');
   };
 
   return (
@@ -120,8 +126,8 @@ export function AppHeader() {
               {t('editPassword')}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-red-600">
-              <User className="mr-2 h-4 w-4" />
+            <DropdownMenuItem className="text-red-600" onClick={handleLogout}>
+              <LogOut className="mr-2 h-4 w-4" />
               {t('logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
