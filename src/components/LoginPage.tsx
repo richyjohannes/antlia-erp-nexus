@@ -1,21 +1,17 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Switch } from '@/components/ui/switch';
 import { Warehouse, FileText, Users, Zap, Shield, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showInfo, setShowInfo] = useState(false);
-  const [isIndonesian, setIsIndonesian] = useState(false);
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,37 +19,31 @@ export function LoginPage() {
     navigate('/dashboard');
   };
 
-  const toggleLanguage = (checked: boolean) => {
-    const newLang = checked ? 'id' : 'en';
-    i18n.changeLanguage(newLang);
-    setIsIndonesian(checked);
-  };
-
   const features = [
     {
       icon: <Warehouse className="w-6 h-6" />,
-      title: t('warehouseManagement'),
-      description: t('warehouseManagementDesc')
+      title: "Manajemen Gudang",
+      description: "Kelola inventori dan distribusi dengan efisien"
     },
     {
       icon: <FileText className="w-6 h-6" />,
-      title: t('financialReports'),
-      description: t('financialReportsDesc')
+      title: "Laporan Keuangan",
+      description: "Analisis keuangan lengkap dan real-time"
     },
     {
       icon: <Users className="w-6 h-6" />,
-      title: t('hrdAttendance'),
-      description: t('hrdAttendanceDesc')
+      title: "HRD & Absensi",
+      description: "Manajemen karyawan dan kehadiran"
     },
     {
       icon: <Zap className="w-6 h-6" />,
-      title: t('autopushOrder'),
-      description: t('autopushOrderDesc')
+      title: "Pemesanan Otomatis",
+      description: "Sistem otomatis untuk efisiensi maksimal"
     },
     {
       icon: <Shield className="w-6 h-6" />,
-      title: t('dataSecurity'),
-      description: t('dataSecurityDesc')
+      title: "Keamanan Data",
+      description: "Perlindungan data tingkat enterprise"
     }
   ];
 
@@ -64,17 +54,6 @@ export function LoginPage() {
         background: 'linear-gradient(135deg, #05b2fd 0%, #6f42c1 50%, #cb4848 100%)'
       }}
     >
-      {/* Language Toggle - Top Right */}
-      <div className="absolute top-4 right-4 z-30 flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full p-2">
-        <span className="text-sm text-white font-medium">EN</span>
-        <Switch 
-          checked={isIndonesian} 
-          onCheckedChange={toggleLanguage}
-          className="data-[state=checked]:bg-white/30"
-        />
-        <span className="text-sm text-white font-medium">ID</span>
-      </div>
-
       {/* Animated Stars Background */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(100)].map((_, i) => (
@@ -104,7 +83,7 @@ export function LoginPage() {
               className={`${!showInfo ? 'bg-white/20' : ''} text-gray-600`}
             >
               <ChevronLeft className="w-4 h-4" />
-              {t('login')}
+              Masuk
             </Button>
             <Button
               variant="ghost"
@@ -112,7 +91,7 @@ export function LoginPage() {
               onClick={() => setShowInfo(true)}
               className={`${showInfo ? 'bg-white/20' : ''} text-gray-600`}
             >
-              {t('info')}
+              Info
               <ChevronRight className="w-4 h-4" />
             </Button>
           </div>
@@ -148,15 +127,15 @@ export function LoginPage() {
                     backgroundClip: 'text'
                   }}
                 >
-                  {t('welcomeToAntlia')}
+                  Selamat Datang di Antlia
                 </h1>
-                <p className="text-gray-600 text-lg">{t('loginToErp')}</p>
+                <p className="text-gray-600 text-lg">Masuk ke Sistem ERP</p>
               </div>
 
               <form onSubmit={handleLogin} className="space-y-6">
                 <div>
                   <Label htmlFor="username" className="text-sm font-semibold text-gray-700 mb-2 block">
-                    {t('usernameEmailPhone')}
+                    Username, Email, atau Telepon
                   </Label>
                   <Input
                     id="username"
@@ -164,13 +143,13 @@ export function LoginPage() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     className="h-12 border-2 border-gray-200 focus:border-transparent focus:ring-2 focus:ring-offset-2 rounded-xl text-lg focus:ring-blue-400"
-                    placeholder={t('enterUsernameEmailPhone')}
+                    placeholder="Masukkan username, email, atau telepon"
                     required
                   />
                 </div>
                 <div>
                   <Label htmlFor="password" className="text-sm font-semibold text-gray-700 mb-2 block">
-                    {t('password')}
+                    Kata Sandi
                   </Label>
                   <Input
                     id="password"
@@ -178,7 +157,7 @@ export function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="h-12 border-2 border-gray-200 focus:border-transparent focus:ring-2 focus:ring-offset-2 rounded-xl text-lg focus:ring-blue-400"
-                    placeholder={t('enterPassword')}
+                    placeholder="Masukkan kata sandi"
                     required
                   />
                 </div>
@@ -189,7 +168,7 @@ export function LoginPage() {
                     background: 'linear-gradient(135deg, #05b2fd 0%, #6f42c1 50%, #cb4848 100%)'
                   }}
                 >
-                  {t('loginToAntlia')}
+                  Masuk ke Antlia
                 </Button>
               </form>
               
@@ -202,7 +181,7 @@ export function LoginPage() {
                     backgroundClip: 'text'
                   }}
                 >
-                  {t('forgotPassword')}
+                  Lupa Kata Sandi?
                 </a>
               </div>
             </div>
@@ -234,7 +213,7 @@ export function LoginPage() {
 
             <div className="relative z-10 p-8 lg:p-12 h-full flex flex-col justify-center">
               <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8 text-center lg:text-left">
-                {t('whyAntliaErp')}
+                Mengapa Memilih Antlia ERP?
               </h2>
               
               <div className="space-y-4">
