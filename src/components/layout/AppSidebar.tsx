@@ -34,7 +34,7 @@ export function AppSidebar() {
   const menuItems = [
     {
       title: t('dashboard'),
-      url: '/',
+      url: '/dashboard',
       icon: Home,
     },
     {
@@ -128,13 +128,22 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="p-4 border-b">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-[var(--gradient-start)] via-[var(--gradient-middle)] to-[var(--gradient-end)] flex items-center justify-center text-white font-bold text-sm">
+        <div className="flex items-center justify-center">
+          <img 
+            src="/assets/image/logo.png" 
+            alt="Antlia Logo" 
+            className="h-12 w-auto max-w-full object-contain"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+              const fallback = target.nextElementSibling as HTMLElement;
+              if (fallback) {
+                fallback.classList.remove('hidden');
+              }
+            }}
+          />
+          <div className="hidden h-12 w-24 rounded-lg bg-gradient-to-r from-[var(--gradient-start)] via-[var(--gradient-middle)] to-[var(--gradient-end)] flex items-center justify-center text-white font-bold text-xl">
             A
-          </div>
-          <div className="flex flex-col">
-            <span className="font-bold text-lg text-[var(--color-primary)]">{t('company')}</span>
-            <span className="text-xs text-gray-500">ERP System</span>
           </div>
         </div>
       </SidebarHeader>
