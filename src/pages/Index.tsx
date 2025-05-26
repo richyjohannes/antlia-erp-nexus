@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DashboardStats } from '@/components/dashboard/DashboardStats';
 import { SalesChart } from '@/components/dashboard/SalesChart';
 import { RecentOrders } from '@/components/dashboard/RecentOrders';
@@ -15,6 +16,7 @@ import { PieChart3D } from '@/components/dashboard/PieChart3D';
 import { HorizontalBarChart } from '@/components/dashboard/HorizontalBarChart';
 
 const Index = () => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -32,19 +34,19 @@ const Index = () => {
 
   // Sample data for new charts
   const departmentData = [
-    { name: 'Production', value: 35 },
-    { name: 'Sales', value: 25 },
-    { name: 'Marketing', value: 20 },
-    { name: 'Operations', value: 15 },
-    { name: 'Support', value: 5 }
+    { name: t('production'), value: 35 },
+    { name: t('sales'), value: 25 },
+    { name: t('marketing'), value: 20 },
+    { name: t('operations'), value: 15 },
+    { name: t('support'), value: 5 }
   ];
 
   const performanceData = [
-    { name: 'Sales Team', value: 85, target: 90 },
-    { name: 'Production', value: 92, target: 85 },
-    { name: 'Quality Control', value: 78, target: 80 },
-    { name: 'Customer Service', value: 95, target: 90 },
-    { name: 'Logistics', value: 88, target: 85 }
+    { name: t('salesTeam'), value: 85, target: 90 },
+    { name: t('production'), value: 92, target: 85 },
+    { name: t('qualityControl'), value: 78, target: 80 },
+    { name: t('customerService'), value: 95, target: 90 },
+    { name: t('logistics'), value: 88, target: 85 }
   ];
 
   return (
@@ -68,11 +70,11 @@ const Index = () => {
       {/* New Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <PieChart3D 
-          title="Department Distribution"
+          title={t('departmentDistribution')}
           data={departmentData}
         />
         <HorizontalBarChart 
-          title="Team Performance vs Target"
+          title={t('teamPerformance')}
           data={performanceData}
         />
       </div>

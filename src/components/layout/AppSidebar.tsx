@@ -128,11 +128,11 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="p-4 border-b">
-        <div className="flex items-center justify-center">
+        <div className="flex items-center">
           <img 
-            src="/assets/image/logo.png" 
+            src="/assets/image/logo-antlia.png" 
             alt="Antlia Logo" 
-            className="h-12 w-auto max-w-full object-contain"
+            className="h-8 w-auto max-w-full object-contain"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.style.display = 'none';
@@ -142,7 +142,7 @@ export function AppSidebar() {
               }
             }}
           />
-          <div className="hidden h-12 w-24 rounded-lg bg-gradient-to-r from-[var(--gradient-start)] via-[var(--gradient-middle)] to-[var(--gradient-end)] flex items-center justify-center text-white font-bold text-xl">
+          <div className="hidden h-8 w-24 rounded-lg bg-gradient-to-r from-[var(--gradient-start)] via-[var(--gradient-middle)] to-[var(--gradient-end)] flex items-center justify-center text-white font-bold text-xl">
             A
           </div>
         </div>

@@ -9,28 +9,28 @@ export function FinancialOverview() {
 
   const financialData = [
     {
-      title: 'Cash Flow',
+      title: t('cashFlow'),
       value: 'Rp 45,230,000',
       change: '+15.2%',
       positive: true,
       icon: DollarSign,
     },
     {
-      title: 'Accounts Receivable',
+      title: t('accountsReceivable'),
       value: 'Rp 32,100,000',
       change: '-8.5%',
       positive: false,
       icon: CreditCard,
     },
     {
-      title: 'Net Profit Margin',
+      title: t('netProfitMargin'),
       value: '18.5%',
       change: '+3.2%',
       positive: true,
       icon: TrendingUp,
     },
     {
-      title: 'Operating Expenses',
+      title: t('operatingExpenses'),
       value: 'Rp 28,900,000',
       change: '+5.1%',
       positive: false,

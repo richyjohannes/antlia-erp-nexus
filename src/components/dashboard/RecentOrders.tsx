@@ -48,6 +48,15 @@ export function RecentOrders() {
     return variants[status as keyof typeof variants] || 'bg-gray-100 text-gray-800';
   };
 
+  const getStatusTranslation = (status: string) => {
+    const statusMap = {
+      'Completed': t('completed'),
+      'Processing': t('processing'),
+      'Pending': t('pending'),
+    };
+    return statusMap[status as keyof typeof statusMap] || status;
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -75,7 +84,7 @@ export function RecentOrders() {
                 <TableCell className="font-semibold">{order.amount}</TableCell>
                 <TableCell>
                   <Badge className={getStatusBadge(order.status)}>
-                    {order.status}
+                    {getStatusTranslation(order.status)}
                   </Badge>
                 </TableCell>
               </TableRow>

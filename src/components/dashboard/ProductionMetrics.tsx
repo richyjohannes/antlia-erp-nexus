@@ -8,10 +8,10 @@ export function ProductionMetrics() {
   const { t } = useTranslation();
 
   const metrics = [
-    { name: 'Production Efficiency', value: 87, target: 90, status: 'warning' },
-    { name: 'Quality Control', value: 95, target: 95, status: 'success' },
-    { name: 'Equipment Utilization', value: 78, target: 85, status: 'danger' },
-    { name: 'On-time Delivery', value: 92, target: 90, status: 'success' },
+    { name: t('productionEfficiency'), value: 87, target: 90, status: 'warning' },
+    { name: t('qualityControl'), value: 95, target: 95, status: 'success' },
+    { name: t('equipmentUtilization'), value: 78, target: 85, status: 'danger' },
+    { name: t('onTimeDelivery'), value: 92, target: 90, status: 'success' },
   ];
 
   const getStatusColor = (status: string) => {
@@ -52,7 +52,7 @@ export function ProductionMetrics() {
               />
             </div>
             <div className="text-xs text-gray-500">
-              Target: {metric.target}%
+              {t('target')}: {metric.target}%
             </div>
           </div>
         ))}
