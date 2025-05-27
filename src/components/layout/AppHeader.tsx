@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { SidebarTrigger } from '@/components/ui/sidebar';
@@ -11,21 +11,13 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator 
 } from '@/components/ui/dropdown-menu';
-import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Bell, User, LogOut } from 'lucide-react';
 
 export function AppHeader() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const [isIndonesian, setIsIndonesian] = useState(i18n.language === 'id');
-
-  const toggleLanguage = (checked: boolean) => {
-    const newLang = checked ? 'id' : 'en';
-    i18n.changeLanguage(newLang);
-    setIsIndonesian(checked);
-  };
 
   const handleLogout = () => {
     navigate('/login');
@@ -41,17 +33,6 @@ export function AppHeader() {
       </div>
       
       <div className="flex items-center gap-4">
-        {/* Language Toggle */}
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-600">EN</span>
-          <Switch 
-            checked={isIndonesian} 
-            onCheckedChange={toggleLanguage}
-            className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-[var(--gradient-start)] data-[state=checked]:to-[var(--gradient-middle)]"
-          />
-          <span className="text-sm text-gray-600">ID</span>
-        </div>
-
         {/* Notifications */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

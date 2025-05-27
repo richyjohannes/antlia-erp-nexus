@@ -15,15 +15,23 @@ const resources = {
   }
 };
 
+// Get saved language preference or default to 'id'
+const savedLanguage = localStorage.getItem('preferredLanguage') || 'id';
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
+    lng: savedLanguage,
     fallbackLng: 'id',
     debug: false,
     interpolation: {
       escapeValue: false,
+    },
+    detection: {
+      order: ['localStorage', 'navigator'],
+      caches: ['localStorage'],
     },
   });
 

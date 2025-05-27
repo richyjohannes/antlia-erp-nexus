@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
@@ -17,6 +16,15 @@ export function LoginPage() {
   const [isIndonesian, setIsIndonesian] = useState(i18n.language === 'id');
   const navigate = useNavigate();
 
+  // Load saved language preference on component mount
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('preferredLanguage');
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage);
+      setIsIndonesian(savedLanguage === 'id');
+    }
+  }, [i18n]);
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     navigate('/dashboard');
@@ -26,6 +34,8 @@ export function LoginPage() {
     const newLang = checked ? 'id' : 'en';
     i18n.changeLanguage(newLang);
     setIsIndonesian(checked);
+    // Save language preference to localStorage
+    localStorage.setItem('preferredLanguage', newLang);
   };
 
   const features = [
