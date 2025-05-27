@@ -269,7 +269,7 @@ export function LoginPage() {
         </div>
       </Card>
 
-      <style jsx>{`
+      <style>{`
         @keyframes moveStars {
           0% {
             transform: translateX(0) translateY(0) rotate(0deg);
