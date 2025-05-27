@@ -27,6 +27,8 @@ export function LoginPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    // Save language preference before navigating
+    localStorage.setItem('preferredLanguage', isIndonesian ? 'id' : 'en');
     navigate('/dashboard');
   };
 
@@ -34,7 +36,7 @@ export function LoginPage() {
     const newLang = checked ? 'id' : 'en';
     i18n.changeLanguage(newLang);
     setIsIndonesian(checked);
-    // Save language preference to localStorage
+    // Save language preference to localStorage immediately
     localStorage.setItem('preferredLanguage', newLang);
   };
 
