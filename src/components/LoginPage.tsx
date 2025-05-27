@@ -1,74 +1,99 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Warehouse, FileText, Users, Zap, Shield, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Warehouse, FileText, Users, Zap, Shield, Star, ChevronLeft, ChevronRight, Globe } from 'lucide-react';
 
 export function LoginPage() {
+  const { t, i18n } = useTranslation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showInfo, setShowInfo] = useState(false);
+  const [isIndonesian, setIsIndonesian] = useState(i18n.language === 'id');
   const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Temporary redirect to dashboard regardless of credentials
     navigate('/dashboard');
+  };
+
+  const toggleLanguage = (checked: boolean) => {
+    const newLang = checked ? 'id' : 'en';
+    i18n.changeLanguage(newLang);
+    setIsIndonesian(checked);
   };
 
   const features = [
     {
       icon: <Warehouse className="w-6 h-6" />,
-      title: "Manajemen Gudang",
-      description: "Kelola inventori dan distribusi dengan efisien"
+      title: t('warehouseManagement'),
+      description: t('warehouseManagementDesc')
     },
     {
       icon: <FileText className="w-6 h-6" />,
-      title: "Laporan Keuangan",
-      description: "Analisis keuangan lengkap dan real-time"
+      title: t('financialReports'),
+      description: t('financialReportsDesc')
     },
     {
       icon: <Users className="w-6 h-6" />,
-      title: "HRD & Absensi",
-      description: "Manajemen karyawan dan kehadiran"
+      title: t('hrdAttendance'),
+      description: t('hrdAttendanceDesc')
     },
     {
       icon: <Zap className="w-6 h-6" />,
-      title: "Pemesanan Otomatis",
-      description: "Sistem otomatis untuk efisiensi maksimal"
+      title: t('automaticOrdering'),
+      description: t('automaticOrderingDesc')
     },
     {
       icon: <Shield className="w-6 h-6" />,
-      title: "Keamanan Data",
-      description: "Perlindungan data tingkat enterprise"
+      title: t('dataSecurity'),
+      description: t('dataSecurityDesc')
     }
   ];
 
   return (
     <div 
-      className="min-h-screen flex items-center justify-center p-4"
+      className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
       style={{
         background: 'linear-gradient(135deg, #05b2fd 0%, #6f42c1 50%, #cb4848 100%)'
       }}
     >
-      {/* Animated Stars Background */}
+      {/* Moving Stars Background */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(100)].map((_, i) => (
+        {[...Array(150)].map((_, i) => (
           <Star
             key={i}
-            className={`absolute text-white opacity-30 animate-pulse`}
-            size={Math.random() * 6 + 2}
+            className={`absolute text-white/40 animate-pulse`}
+            size={Math.random() * 4 + 2}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${Math.random() * 2 + 2}s`
+              animationDuration: `${Math.random() * 3 + 2}s`,
+              transform: `translateX(${Math.random() * 200 - 100}px) translateY(${Math.random() * 200 - 100}px)`,
+              animation: `moveStars ${Math.random() * 20 + 10}s infinite linear, pulse ${Math.random() * 2 + 2}s infinite ease-in-out`
             }}
           />
         ))}
+      </div>
+
+      {/* Language Switch - Top Right */}
+      <div className="absolute top-6 right-6 z-20">
+        <div className="flex items-center gap-3 bg-white/20 backdrop-blur-md rounded-full px-4 py-2 border border-white/30">
+          <Globe className="w-4 h-4 text-white" />
+          <span className="text-sm text-white font-medium">EN</span>
+          <Switch 
+            checked={isIndonesian} 
+            onCheckedChange={toggleLanguage}
+            className="data-[state=checked]:bg-white data-[state=unchecked]:bg-white/40"
+          />
+          <span className="text-sm text-white font-medium">ID</span>
+        </div>
       </div>
 
       {/* Main Container */}
@@ -83,7 +108,7 @@ export function LoginPage() {
               className={`${!showInfo ? 'bg-white/20' : ''} text-gray-600`}
             >
               <ChevronLeft className="w-4 h-4" />
-              Masuk
+              {t('login')}
             </Button>
             <Button
               variant="ghost"
@@ -91,7 +116,7 @@ export function LoginPage() {
               onClick={() => setShowInfo(true)}
               className={`${showInfo ? 'bg-white/20' : ''} text-gray-600`}
             >
-              Info
+              {t('info')}
               <ChevronRight className="w-4 h-4" />
             </Button>
           </div>
@@ -127,15 +152,15 @@ export function LoginPage() {
                     backgroundClip: 'text'
                   }}
                 >
-                  Selamat Datang di Antlia
+                  {t('welcomeToAntlia')}
                 </h1>
-                <p className="text-gray-600 text-lg">Masuk ke Sistem ERP</p>
+                <p className="text-gray-600 text-lg">{t('loginToErpSystem')}</p>
               </div>
 
               <form onSubmit={handleLogin} className="space-y-6">
                 <div>
                   <Label htmlFor="username" className="text-sm font-semibold text-gray-700 mb-2 block">
-                    Username, Email, atau Telepon
+                    {t('usernameEmailPhone')}
                   </Label>
                   <Input
                     id="username"
@@ -143,13 +168,13 @@ export function LoginPage() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     className="h-12 border-2 border-gray-200 focus:border-transparent focus:ring-2 focus:ring-offset-2 rounded-xl text-lg focus:ring-blue-400"
-                    placeholder="Masukkan username, email, atau telepon"
+                    placeholder={t('enterUsernameEmailPhone')}
                     required
                   />
                 </div>
                 <div>
                   <Label htmlFor="password" className="text-sm font-semibold text-gray-700 mb-2 block">
-                    Kata Sandi
+                    {t('password')}
                   </Label>
                   <Input
                     id="password"
@@ -157,7 +182,7 @@ export function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="h-12 border-2 border-gray-200 focus:border-transparent focus:ring-2 focus:ring-offset-2 rounded-xl text-lg focus:ring-blue-400"
-                    placeholder="Masukkan kata sandi"
+                    placeholder={t('enterPassword')}
                     required
                   />
                 </div>
@@ -168,7 +193,7 @@ export function LoginPage() {
                     background: 'linear-gradient(135deg, #05b2fd 0%, #6f42c1 50%, #cb4848 100%)'
                   }}
                 >
-                  Masuk ke Antlia
+                  {t('loginToAntlia')}
                 </Button>
               </form>
               
@@ -181,7 +206,7 @@ export function LoginPage() {
                     backgroundClip: 'text'
                   }}
                 >
-                  Lupa Kata Sandi?
+                  {t('forgotPassword')}
                 </a>
               </div>
             </div>
@@ -194,18 +219,19 @@ export function LoginPage() {
               background: 'linear-gradient(135deg, #05b2fd 0%, #6f42c1 50%, #cb4848 100%)'
             }}
           >
-            {/* Animated Stars */}
+            {/* Moving Stars for Right Side */}
             <div className="absolute inset-0">
-              {[...Array(30)].map((_, i) => (
+              {[...Array(50)].map((_, i) => (
                 <Star
-                  key={i}
-                  className={`absolute text-white opacity-50 animate-pulse`}
+                  key={`right-${i}`}
+                  className={`absolute text-white/50 animate-pulse`}
                   size={Math.random() * 8 + 4}
                   style={{
                     left: `${Math.random() * 100}%`,
                     top: `${Math.random() * 100}%`,
                     animationDelay: `${Math.random() * 3}s`,
-                    animationDuration: `${Math.random() * 2 + 2}s`
+                    animationDuration: `${Math.random() * 2 + 2}s`,
+                    animation: `moveStars ${Math.random() * 15 + 8}s infinite linear, pulse ${Math.random() * 2 + 2}s infinite ease-in-out`
                   }}
                 />
               ))}
@@ -213,7 +239,7 @@ export function LoginPage() {
 
             <div className="relative z-10 p-8 lg:p-12 h-full flex flex-col justify-center">
               <h2 className="text-3xl lg:text-4xl font-bold text-white mb-8 text-center lg:text-left">
-                Mengapa Memilih Antlia ERP?
+                {t('whyChooseAntliaErp')}
               </h2>
               
               <div className="space-y-4">
@@ -242,6 +268,26 @@ export function LoginPage() {
           </div>
         </div>
       </Card>
+
+      <style jsx>{`
+        @keyframes moveStars {
+          0% {
+            transform: translateX(0) translateY(0) rotate(0deg);
+          }
+          25% {
+            transform: translateX(100px) translateY(-50px) rotate(90deg);
+          }
+          50% {
+            transform: translateX(50px) translateY(100px) rotate(180deg);
+          }
+          75% {
+            transform: translateX(-50px) translateY(50px) rotate(270deg);
+          }
+          100% {
+            transform: translateX(0) translateY(0) rotate(360deg);
+          }
+        }
+      `}</style>
     </div>
   );
 }
