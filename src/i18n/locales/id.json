@@ -141,5 +141,17 @@
   "createdDate": "Tanggal Dibuat",
   "noRolesFound": "Peran tidak ditemukan",
   "permissionMatrix": "Matriks Izin",
-  "viewPermissionsByModule": "Lihat izin yang diorganisir berdasarkan modul"
+  "viewPermissionsByModule": "Lihat izin yang diorganisir berdasarkan modul",
+  "currencyManagement": "Manajemen Mata Uang",
+  "manageCurrencySettings": "Kelola pengaturan mata uang dan kurs",
+  "addCurrency": "Tambah Mata Uang",
+  "searchCurrencies": "Cari mata uang...",
+  "currencyCode": "Kode Mata Uang",
+  "currencyName": "Nama Mata Uang",
+  "symbol": "Simbol",
+  "exchangeRate": "Kurs",
+  "isDefault": "Default",
+  "lastUpdated": "Terakhir Diperbarui",
+  "noCurrenciesFound": "Mata uang tidak ditemukan",
+  "supplierManagement": "Manajemen Pemasok"
 }

@@ -141,5 +141,17 @@
   "createdDate": "Created Date",
   "noRolesFound": "No roles found",
   "permissionMatrix": "Permission Matrix",
-  "viewPermissionsByModule": "View permissions organized by module"
+  "viewPermissionsByModule": "View permissions organized by module",
+  "currencyManagement": "Currency Management",
+  "manageCurrencySettings": "Manage currency settings and exchange rates",
+  "addCurrency": "Add Currency",
+  "searchCurrencies": "Search currencies...",
+  "currencyCode": "Currency Code",
+  "currencyName": "Currency Name",
+  "symbol": "Symbol",
+  "exchangeRate": "Exchange Rate",
+  "isDefault": "Default",
+  "lastUpdated": "Last Updated",
+  "noCurrenciesFound": "No currencies found",
+  "supplierManagement": "Supplier Management"
 }

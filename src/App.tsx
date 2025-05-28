@@ -15,6 +15,7 @@ import NotFound from "./pages/NotFound";
 import UserPage from "./pages/user-management/User";
 import UserRolePage from "./pages/user-management/UserRole";
 import CurrencyPage from "./pages/master-data/CurrencyPage";
+import SupplierPage from "./pages/master-data/SupplierPage";
 import './i18n/config';
 
 const queryClient = new QueryClient();
@@ -48,6 +49,11 @@ const App = () => (
             <Route path="/master-data/currency" element={
               <MainLayout>
                 <CurrencyPage />
+              </MainLayout>
+            } />
+            <Route path="/master-data/supplier" element={
+              <MainLayout>
+                <SupplierPage />
               </MainLayout>
             } />
             <Route path="/master-data/*" element={
