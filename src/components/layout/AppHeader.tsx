@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { 
@@ -18,9 +17,52 @@ import { Bell, User, LogOut } from 'lucide-react';
 export function AppHeader() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     navigate('/login');
+  };
+
+  const getPageTitle = () => {
+    const path = location.pathname;
+    
+    if (path === '/dashboard') return t('dashboard');
+    if (path === '/color-settings') return t('globalColorSettings');
+    
+    // Master Data routes
+    if (path.startsWith('/master-data/')) {
+      const subPath = path.split('/')[2];
+      switch(subPath) {
+        case 'customer': return t('customer');
+        case 'supplier': return t('supplier');
+        case 'category': return t('category');
+        case 'uom': return t('uom');
+        case 'material-type': return t('materialType');
+        case 'product': return t('product');
+        case 'warehouse': return t('warehouse');
+        case 'storage': return t('storage');
+        default: return t('masterData');
+      }
+    }
+    
+    // User Management routes
+    if (path.startsWith('/user-management/')) {
+      const subPath = path.split('/')[2];
+      switch(subPath) {
+        case 'user': return t('user');
+        case 'user-role': return t('userRole');
+        default: return t('userManagement');
+      }
+    }
+    
+    // Other routes
+    if (path.startsWith('/procurement/')) return t('procurement');
+    if (path.startsWith('/warehouse/')) return t('warehouseLogistics');
+    if (path.startsWith('/ppic/')) return t('ppic');
+    if (path.startsWith('/manufacture/')) return t('manufacture');
+    if (path.startsWith('/setup')) return t('setup');
+    
+    return t('dashboard');
   };
 
   return (
@@ -28,7 +70,7 @@ export function AppHeader() {
       <div className="flex items-center gap-4">
         <SidebarTrigger />
         <h1 className="text-xl font-semibold text-gray-800">
-          {t('dashboard')}
+          {getPageTitle()}
         </h1>
       </div>
       

@@ -12,6 +12,8 @@ import { LoginPage } from '@/components/LoginPage';
 import { UnderDevelopment } from '@/components/UnderDevelopment';
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import UserPage from "./pages/user-management/User";
+import UserRolePage from "./pages/user-management/UserRole";
 import './i18n/config';
 
 const queryClient = new QueryClient();
@@ -45,6 +47,18 @@ const App = () => (
             <Route path="/master-data/*" element={
               <MainLayout>
                 <UnderDevelopment />
+              </MainLayout>
+            } />
+            
+            {/* User Management Routes */}
+            <Route path="/user-management/user" element={
+              <MainLayout>
+                <UserPage />
+              </MainLayout>
+            } />
+            <Route path="/user-management/user-role" element={
+              <MainLayout>
+                <UserRolePage />
               </MainLayout>
             } />
             

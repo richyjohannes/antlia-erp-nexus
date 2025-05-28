@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
@@ -24,7 +23,8 @@ import {
   ChevronDown,
   Calendar,
   Bell,
-  Cog
+  Cog,
+  Users
 } from 'lucide-react';
 
 export function AppSidebar() {
@@ -49,6 +49,14 @@ export function AppSidebar() {
         { title: t('product'), url: '/master-data/product' },
         { title: t('warehouse'), url: '/master-data/warehouse' },
         { title: t('storage'), url: '/master-data/storage' },
+      ]
+    },
+    {
+      title: t('userManagement'),
+      icon: Users,
+      items: [
+        { title: t('user'), url: '/user-management/user' },
+        { title: t('userRole'), url: '/user-management/user-role' },
       ]
     },
     {
