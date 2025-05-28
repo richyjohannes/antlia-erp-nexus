@@ -49,6 +49,7 @@ export function AppSidebar() {
         { title: t('product'), url: '/master-data/product' },
         { title: t('warehouse'), url: '/master-data/warehouse' },
         { title: t('storage'), url: '/master-data/storage' },
+        { title: t('currency'), url: '/master-data/currency' },
       ]
     },
     {

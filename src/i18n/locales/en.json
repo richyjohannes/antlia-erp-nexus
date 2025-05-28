@@ -68,6 +68,7 @@
   "product": "Product",
   "warehouse": "Warehouse",
   "storage": "Storage",
+  "currency": "Currency",
   "userManagement": "User Management",
   "user": "User",
   "userRole": "User Role",

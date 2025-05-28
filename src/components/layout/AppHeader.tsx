@@ -1,8 +1,10 @@
+
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -12,15 +14,20 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Bell, User, LogOut } from 'lucide-react';
+import { Bell, User, LogOut, Globe } from 'lucide-react';
 
 export function AppHeader() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleLogout = () => {
     navigate('/login');
+  };
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'id' : 'en';
+    i18n.changeLanguage(newLang);
   };
 
   const getPageTitle = () => {
@@ -41,6 +48,7 @@ export function AppHeader() {
         case 'product': return t('product');
         case 'warehouse': return t('warehouse');
         case 'storage': return t('storage');
+        case 'currency': return t('currency');
         default: return t('masterData');
       }
     }
@@ -75,6 +83,18 @@ export function AppHeader() {
       </div>
       
       <div className="flex items-center gap-4">
+        {/* Language Toggle */}
+        <div className="flex items-center gap-2">
+          <Globe className="h-4 w-4 text-gray-600" />
+          <span className="text-sm text-gray-600">EN</span>
+          <Switch
+            checked={i18n.language === 'id'}
+            onCheckedChange={toggleLanguage}
+            className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-[var(--gradient-start)] data-[state=checked]:to-[var(--gradient-middle)]"
+          />
+          <span className="text-sm text-gray-600">ID</span>
+        </div>
+
         {/* Notifications */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
