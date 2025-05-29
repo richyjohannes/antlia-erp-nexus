@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '@/contexts/ColorContext';
@@ -44,6 +43,14 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 import { Plus, Search, Download, Eye, Edit, Trash2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -172,6 +179,9 @@ export default function SupplierPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  // Form validation schema
+
+
   const form = useForm<SupplierFormData>({
     resolver: zodResolver(supplierSchema),
     defaultValues: {
@@ -194,10 +204,7 @@ export default function SupplierPage() {
     <div className="p-6 space-y-6">
       {/* Header Card */}
       <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
-        <CardHeader 
-          gradient
-          className="flex flex-row items-center justify-between p-6 rounded-t-lg"
-        >
+        <CardHeader className="flex flex-row items-center justify-between bg-gradient-to-r from-[#00aaff] via-[#7b42f1] to-[#ff1a4a] p-6 rounded-t-lg">
           <CardTitle className="text-white text-2xl font-bold">
             Data Supplier
           </CardTitle>
@@ -211,17 +218,13 @@ export default function SupplierPage() {
                 className="pl-10 md:w-64 bg-white"
               />
             </div>
-            <Button 
-              variant="gradient"
-              className="px-6 py-3 rounded-full"
-            >
+            <Button className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
               <Plus className="h-4 w-4 mr-2" />
               Add Supplier
             </Button>
             <Button 
               onClick={handleExport}
-              variant="gradient"
-              className="px-6 py-3 rounded-full border-none"
+              className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 border-none"
             >
               <Download className="h-4 w-4 mr-2" />
               Download Excel
@@ -265,11 +268,7 @@ export default function SupplierPage() {
                     <TableCell>
                       <Badge 
                         variant={supplier.status === 'Active' ? 'default' : 'secondary'}
-                        className={supplier.status === 'Active' ? '' : ''}
-                        style={supplier.status === 'Active' ? {
-                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`,
-                          color: 'white'
-                        } : {}}
+                        className={supplier.status === 'Active' ? 'bg-gradient-to-r from-[#00aaff] to-[#7b42f1] text-white' : ''}
                       >
                         {supplier.status}
                       </Badge>
@@ -277,13 +276,13 @@ export default function SupplierPage() {
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Button variant="ghost" size="sm">
-                          <Eye className="h-4 w-4" style={{ color: colors.gradientStart }} />
+                          <Eye className="h-4 w-4" />
                         </Button>
                         <Button variant="ghost" size="sm">
-                          <Edit className="h-4 w-4" style={{ color: colors.gradientMiddle }} />
+                          <Edit className="h-4 w-4" />
                         </Button>
                         <Button variant="ghost" size="sm">
-                          <Trash2 className="h-4 w-4" style={{ color: colors.gradientEnd }} />
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </TableCell>

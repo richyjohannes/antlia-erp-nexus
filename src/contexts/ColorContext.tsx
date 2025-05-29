@@ -16,11 +16,11 @@ interface ColorContextType {
 }
 
 const defaultColors: ColorScheme = {
-  primary: '#00aaff',
+  primary: '#38b6ff',
   secondary: '#f7f8fa',
-  gradientStart: '#00aaff',
-  gradientMiddle: '#7b42f1',
-  gradientEnd: '#ff1a4a'
+  gradientStart: '#05b2fd',
+  gradientMiddle: '#6f42c1',
+  gradientEnd: '#e17a9'
 };
 
 const ColorContext = createContext<ColorContextType | undefined>(undefined);
