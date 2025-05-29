@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '@/contexts/ColorContext';
@@ -8,6 +8,8 @@ import {
   Box,
   Building2,
   Calendar,
+  ChevronDown,
+  ChevronRight,
   CircleDollarSign,
   ClipboardList,
   CreditCard,
@@ -44,6 +46,15 @@ export function AppSidebar() {
   const { t } = useTranslation();
   const location = useLocation();
   const { colors } = useColors();
+  const [openSections, setOpenSections] = useState<string[]>(['master']);
+
+  const toggleSection = (section: string) => {
+    setOpenSections(prev => 
+      prev.includes(section) 
+        ? prev.filter(s => s !== section)
+        : [...prev, section]
+    );
+  };
 
   // Master Data items
   const masterDataItems = [
@@ -159,158 +170,266 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Master Data */}
+        {/* Master Data with Dropdown */}
         <SidebarGroup>
-          <SidebarGroupLabel>{t('masterData')}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {masterDataItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton 
-                    asChild
-                    isActive={location.pathname === item.url}
-                    className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
-                    style={location.pathname === item.url ? {
-                      background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                    } : {}}
-                  >
-                    <Link to={item.url} className="flex items-center space-x-3">
-                      <item.icon className="h-4 w-4" />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  onClick={() => toggleSection('master')}
+                  className="flex items-center justify-between w-full"
+                >
+                  <div className="flex items-center space-x-3">
+                    <Building2 className="h-4 w-4" />
+                    <span>{t('masterData')}</span>
+                  </div>
+                  {openSections.includes('master') ? 
+                    <ChevronDown className="h-4 w-4" /> : 
+                    <ChevronRight className="h-4 w-4" />
+                  }
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              {openSections.includes('master') && (
+                <>
+                  {masterDataItems.map((item) => (
+                    <SidebarMenuItem key={item.title} className="ml-4">
+                      <SidebarMenuButton 
+                        asChild
+                        isActive={location.pathname === item.url}
+                        className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
+                        style={location.pathname === item.url ? {
+                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
+                        } : {}}
+                      >
+                        <Link to={item.url} className="flex items-center space-x-3">
+                          <item.icon className="h-4 w-4" />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </>
+              )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* User Management */}
+        {/* User Management with Dropdown */}
         <SidebarGroup>
-          <SidebarGroupLabel>{t('userManagement')}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {userManagementItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton 
-                    asChild
-                    isActive={location.pathname === item.url}
-                    className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
-                    style={location.pathname === item.url ? {
-                      background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                    } : {}}
-                  >
-                    <Link to={item.url} className="flex items-center space-x-3">
-                      <item.icon className="h-4 w-4" />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  onClick={() => toggleSection('userManagement')}
+                  className="flex items-center justify-between w-full"
+                >
+                  <div className="flex items-center space-x-3">
+                    <Users className="h-4 w-4" />
+                    <span>{t('userManagement')}</span>
+                  </div>
+                  {openSections.includes('userManagement') ? 
+                    <ChevronDown className="h-4 w-4" /> : 
+                    <ChevronRight className="h-4 w-4" />
+                  }
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              {openSections.includes('userManagement') && (
+                <>
+                  {userManagementItems.map((item) => (
+                    <SidebarMenuItem key={item.title} className="ml-4">
+                      <SidebarMenuButton 
+                        asChild
+                        isActive={location.pathname === item.url}
+                        className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
+                        style={location.pathname === item.url ? {
+                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
+                        } : {}}
+                      >
+                        <Link to={item.url} className="flex items-center space-x-3">
+                          <item.icon className="h-4 w-4" />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </>
+              )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Procurement */}
+        {/* Procurement with Dropdown */}
         <SidebarGroup>
-          <SidebarGroupLabel>{t('procurement')}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {procurementItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton 
-                    asChild
-                    isActive={location.pathname === item.url}
-                    className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
-                    style={location.pathname === item.url ? {
-                      background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                    } : {}}
-                  >
-                    <Link to={item.url} className="flex items-center space-x-3">
-                      <item.icon className="h-4 w-4" />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  onClick={() => toggleSection('procurement')}
+                  className="flex items-center justify-between w-full"
+                >
+                  <div className="flex items-center space-x-3">
+                    <ShoppingCart className="h-4 w-4" />
+                    <span>{t('procurement')}</span>
+                  </div>
+                  {openSections.includes('procurement') ? 
+                    <ChevronDown className="h-4 w-4" /> : 
+                    <ChevronRight className="h-4 w-4" />
+                  }
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              {openSections.includes('procurement') && (
+                <>
+                  {procurementItems.map((item) => (
+                    <SidebarMenuItem key={item.title} className="ml-4">
+                      <SidebarMenuButton 
+                        asChild
+                        isActive={location.pathname === item.url}
+                        className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
+                        style={location.pathname === item.url ? {
+                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
+                        } : {}}
+                      >
+                        <Link to={item.url} className="flex items-center space-x-3">
+                          <item.icon className="h-4 w-4" />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </>
+              )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
         {/* Warehouse */}
         <SidebarGroup>
-          <SidebarGroupLabel>{t('warehouseLogistics')}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {warehouseItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton 
-                    asChild
-                    isActive={location.pathname === item.url}
-                    className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
-                    style={location.pathname === item.url ? {
-                      background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                    } : {}}
-                  >
-                    <Link to={item.url} className="flex items-center space-x-3">
-                      <item.icon className="h-4 w-4" />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  onClick={() => toggleSection('warehouseLogistics')}
+                  className="flex items-center justify-between w-full"
+                >
+                  <div className="flex items-center space-x-3">
+                    <Warehouse className="h-4 w-4" />
+                    <span>{t('warehouseLogistics')}</span>
+                  </div>
+                  {openSections.includes('warehouseLogistics') ? 
+                    <ChevronDown className="h-4 w-4" /> : 
+                    <ChevronRight className="h-4 w-4" />
+                  }
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              {openSections.includes('warehouseLogistics') && (
+                <>
+                  {warehouseItems.map((item) => (
+                    <SidebarMenuItem key={item.title} className="ml-4">
+                      <SidebarMenuButton 
+                        asChild
+                        isActive={location.pathname === item.url}
+                        className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
+                        style={location.pathname === item.url ? {
+                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
+                        } : {}}
+                      >
+                        <Link to={item.url} className="flex items-center space-x-3">
+                          <item.icon className="h-4 w-4" />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </>
+              )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
         {/* PPIC */}
         <SidebarGroup>
-          <SidebarGroupLabel>{t('ppic')}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {ppicItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton 
-                    asChild
-                    isActive={location.pathname === item.url}
-                    className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
-                    style={location.pathname === item.url ? {
-                      background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                    } : {}}
-                  >
-                    <Link to={item.url} className="flex items-center space-x-3">
-                      <item.icon className="h-4 w-4" />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  onClick={() => toggleSection('ppic')}
+                  className="flex items-center justify-between w-full"
+                >
+                  <div className="flex items-center space-x-3">
+                    <Calendar className="h-4 w-4" />
+                    <span>{t('ppic')}</span>
+                  </div>
+                  {openSections.includes('ppic') ? 
+                    <ChevronDown className="h-4 w-4" /> : 
+                    <ChevronRight className="h-4 w-4" />
+                  }
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              {openSections.includes('ppic') && (
+                <>
+                  {ppicItems.map((item) => (
+                    <SidebarMenuItem key={item.title} className="ml-4">
+                      <SidebarMenuButton 
+                        asChild
+                        isActive={location.pathname === item.url}
+                        className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
+                        style={location.pathname === item.url ? {
+                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
+                        } : {}}
+                      >
+                        <Link to={item.url} className="flex items-center space-x-3">
+                          <item.icon className="h-4 w-4" />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </>
+              )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
         {/* Manufacture */}
         <SidebarGroup>
-          <SidebarGroupLabel>{t('manufacture')}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {manufactureItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton 
-                    asChild
-                    isActive={location.pathname === item.url}
-                    className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
-                    style={location.pathname === item.url ? {
-                      background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                    } : {}}
-                  >
-                    <Link to={item.url} className="flex items-center space-x-3">
-                      <item.icon className="h-4 w-4" />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  onClick={() => toggleSection('manufacture')}
+                  className="flex items-center justify-between w-full"
+                >
+                  <div className="flex items-center space-x-3">
+                    <HardHat className="h-4 w-4" />
+                    <span>{t('manufacture')}</span>
+                  </div>
+                  {openSections.includes('manufacture') ? 
+                    <ChevronDown className="h-4 w-4" /> : 
+                    <ChevronRight className="h-4 w-4" />
+                  }
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              {openSections.includes('manufacture') && (
+                <>
+                  {manufactureItems.map((item) => (
+                    <SidebarMenuItem key={item.title} className="ml-4">
+                      <SidebarMenuButton 
+                        asChild
+                        isActive={location.pathname === item.url}
+                        className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
+                        style={location.pathname === item.url ? {
+                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
+                        } : {}}
+                      >
+                        <Link to={item.url} className="flex items-center space-x-3">
+                          <item.icon className="h-4 w-4" />
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </>
+              )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '@/contexts/ColorContext';
@@ -85,93 +84,75 @@ const CurrencyPage = () => {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Currency Data Card */}
-      <Card 
-        className="shadow-lg border-0"
-        style={{
-          background: `linear-gradient(135deg, ${colors.gradientStart}15, ${colors.gradientMiddle}15, ${colors.gradientEnd}15)`
-        }}
-      >
-        <CardHeader 
-          className="pb-4"
-          style={{
-            background: `linear-gradient(135deg, ${colors.gradientStart}25, ${colors.gradientMiddle}25)`
-          }}
-        >
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <CardTitle 
-              className="text-2xl font-bold"
-              style={{ color: colors.gradientStart }}
-            >
-              Data Mata Uang
-            </CardTitle>
-            <div className="flex gap-2">
-              <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
-                <DialogTrigger asChild>
-                  <Button 
-                    className="flex items-center gap-2 text-white border-0"
-                    style={{
-                      background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                    }}
-                  >
-                    <Plus className="h-4 w-4" />
-                    Tambah Currency
+      {/* Header Card for Currency Data */}
+      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+        <CardHeader className="flex flex-row items-center justify-between bg-gradient-to-r from-[#00aaff] via-[#7b42f1] to-[#ff1a4a] p-6 rounded-t-lg">
+          <CardTitle className="text-white text-2xl font-bold">
+            Data Mata Uang
+          </CardTitle>
+          <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+                <Plus className="h-4 w-4 mr-2" />
+                Tambah Currency
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Tambah Mata Uang Baru</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="code">Kode Mata Uang</Label>
+                  <Input
+                    id="code"
+                    value={newCurrency.code}
+                    onChange={(e) => setNewCurrency({...newCurrency, code: e.target.value})}
+                    placeholder="Contoh: USD"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="name">Nama</Label>
+                  <Input
+                    id="name"
+                    value={newCurrency.name}
+                    onChange={(e) => setNewCurrency({...newCurrency, name: e.target.value})}
+                    placeholder="Contoh: US Dollar"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="symbol">Simbol</Label>
+                  <Input
+                    id="symbol"
+                    value={newCurrency.symbol}
+                    onChange={(e) => setNewCurrency({...newCurrency, symbol: e.target.value})}
+                    placeholder="Contoh: $"
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="default">Mata Uang Default</Label>
+                  <Switch
+                    id="default"
+                    checked={newCurrency.isDefault}
+                    onCheckedChange={(checked) => setNewCurrency({...newCurrency, isDefault: checked})}
+                  />
+                </div>
+                <div className="flex gap-2 pt-4">
+                  <Button onClick={handleAddCurrency} className="flex-1">Simpan</Button>
+                  <Button variant="outline" onClick={() => setIsAddModalOpen(false)} className="flex-1">
+                    Batal
                   </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Tambah Mata Uang Baru</DialogTitle>
-                  </DialogHeader>
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="code">Kode Mata Uang</Label>
-                      <Input
-                        id="code"
-                        value={newCurrency.code}
-                        onChange={(e) => setNewCurrency({...newCurrency, code: e.target.value})}
-                        placeholder="Contoh: USD"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="name">Nama</Label>
-                      <Input
-                        id="name"
-                        value={newCurrency.name}
-                        onChange={(e) => setNewCurrency({...newCurrency, name: e.target.value})}
-                        placeholder="Contoh: US Dollar"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="symbol">Simbol</Label>
-                      <Input
-                        id="symbol"
-                        value={newCurrency.symbol}
-                        onChange={(e) => setNewCurrency({...newCurrency, symbol: e.target.value})}
-                        placeholder="Contoh: $"
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="default">Mata Uang Default</Label>
-                      <Switch
-                        id="default"
-                        checked={newCurrency.isDefault}
-                        onCheckedChange={(checked) => setNewCurrency({...newCurrency, isDefault: checked})}
-                      />
-                    </div>
-                    <div className="flex gap-2 pt-4">
-                      <Button onClick={handleAddCurrency} className="flex-1">Simpan</Button>
-                      <Button variant="outline" onClick={() => setIsAddModalOpen(false)} className="flex-1">
-                        Batal
-                      </Button>
-                    </div>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </div>
-          </div>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </CardHeader>
-        <CardContent>
-          <div className="rounded-lg border overflow-hidden">
+      </Card>
+
+      {/* Currency Data Table */}
+      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+        <CardContent className="p-0">
+          <div className="rounded-lg border-0 overflow-hidden">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -191,10 +172,7 @@ const CurrencyPage = () => {
                     <TableCell>{currency.symbol}</TableCell>
                     <TableCell>
                       {currency.isDefault && (
-                        <Badge 
-                          className="text-white"
-                          style={{ backgroundColor: colors.gradientStart }}
-                        >
+                        <Badge className="bg-gradient-to-r from-[#00aaff] to-[#7b42f1] text-white">
                           Default
                         </Badge>
                       )}
@@ -223,49 +201,31 @@ const CurrencyPage = () => {
         </CardContent>
       </Card>
 
-      {/* Currency Rate Update BI Card */}
-      <Card 
-        className="shadow-lg border-0"
-        style={{
-          background: `linear-gradient(135deg, ${colors.gradientStart}15, ${colors.gradientMiddle}15, ${colors.gradientEnd}15)`
-        }}
-      >
-        <CardHeader 
-          className="pb-4"
-          style={{
-            background: `linear-gradient(135deg, ${colors.gradientStart}25, ${colors.gradientMiddle}25)`
-          }}
-        >
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <CardTitle 
-              className="text-2xl font-bold"
-              style={{ color: colors.gradientStart }}
-            >
-              Currency Rate Update BI
-            </CardTitle>
-            <div className="flex gap-2">
-              <Input
-                type="date"
-                value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
-                className="w-40"
-              />
-              <Button 
-                variant="outline"
-                className="flex items-center gap-2"
-                style={{
-                  borderColor: colors.gradientStart,
-                  color: colors.gradientStart
-                }}
-              >
-                <RefreshCw className="h-4 w-4" />
-                Refresh
-              </Button>
-            </div>
+      {/* Header Card for Currency Rate Update BI */}
+      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+        <CardHeader className="flex flex-row items-center justify-between bg-gradient-to-r from-[#00aaff] via-[#7b42f1] to-[#ff1a4a] p-6 rounded-t-lg">
+          <CardTitle className="text-white text-2xl font-bold">
+            Currency Rate Update BI
+          </CardTitle>
+          <div className="flex gap-2">
+            <Input
+              type="date"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              className="w-40 bg-white"
+            />
+            <Button className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 border-none">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              Refresh
+            </Button>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="rounded-lg border overflow-hidden">
+      </Card>
+
+      {/* Currency Rate Update BI Table */}
+      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+        <CardContent className="p-0">
+          <div className="rounded-lg border-0 overflow-hidden">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -288,11 +248,7 @@ const CurrencyPage = () => {
                     <TableCell>
                       <Button 
                         size="sm"
-                        style={{
-                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`,
-                          color: 'white',
-                          border: 'none'
-                        }}
+                        className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 rounded-full shadow-md hover:shadow-lg transition-all duration-300 border-none"
                       >
                         <Plus className="h-4 w-4" />
                       </Button>

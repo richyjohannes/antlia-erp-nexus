@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '@/contexts/ColorContext';
@@ -59,34 +58,21 @@ const CustomerPage = () => {
     <div className="p-6 space-y-6">
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card 
-          className="shadow-lg border-0"
-          style={{
-            background: `linear-gradient(135deg, ${colors.gradientStart}20, ${colors.gradientMiddle}20)`
-          }}
-        >
+        <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Total Customer</p>
-                <p className="text-3xl font-bold" style={{ color: colors.gradientStart }}>
+                <p className="text-3xl font-bold text-[#00aaff]">
                   {totalCustomers}
                 </p>
               </div>
-              <Users 
-                className="h-12 w-12" 
-                style={{ color: colors.gradientStart }}
-              />
+              <Users className="h-12 w-12 text-[#00aaff]" />
             </div>
           </CardContent>
         </Card>
 
-        <Card 
-          className="shadow-lg border-0"
-          style={{
-            background: `linear-gradient(135deg, ${colors.gradientStart}20, ${colors.gradientMiddle}20)`
-          }}
-        >
+        <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -100,12 +86,7 @@ const CustomerPage = () => {
           </CardContent>
         </Card>
 
-        <Card 
-          className="shadow-lg border-0"
-          style={{
-            background: `linear-gradient(135deg, ${colors.gradientStart}20, ${colors.gradientMiddle}20)`
-          }}
-        >
+        <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -120,110 +101,90 @@ const CustomerPage = () => {
         </Card>
       </div>
 
-      {/* Customer Data Table Card */}
-      <Card 
-        className="shadow-lg border-0"
-        style={{
-          background: `linear-gradient(135deg, ${colors.gradientStart}15, ${colors.gradientMiddle}15, ${colors.gradientEnd}15)`
-        }}
-      >
-        <CardHeader 
-          className="pb-4"
-          style={{
-            background: `linear-gradient(135deg, ${colors.gradientStart}25, ${colors.gradientMiddle}25)`
-          }}
-        >
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <CardTitle 
-              className="text-2xl font-bold"
-              style={{ color: colors.gradientStart }}
-            >
-              Data Pelanggan
-            </CardTitle>
-            <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 md:w-64"
-                />
-              </div>
-              <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
-                <DialogTrigger asChild>
-                  <Button 
-                    className="flex items-center gap-2 text-white border-0"
-                    style={{
-                      background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                    }}
-                  >
-                    <Plus className="h-4 w-4" />
-                    Add Customer
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Tambah Customer Baru</DialogTitle>
-                  </DialogHeader>
-                  <div className="space-y-4">
-                    <div>
-                      <Label htmlFor="customerName">Nama Customer</Label>
-                      <Input id="customerName" placeholder="Masukkan nama customer" />
-                    </div>
-                    <div>
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="Masukkan email" />
-                    </div>
-                    <div>
-                      <Label htmlFor="type">Type</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Pilih type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="corporate">Corporate</SelectItem>
-                          <SelectItem value="individual">Individual</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label htmlFor="customerType">Customer Type</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Pilih customer type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="premium">Premium</SelectItem>
-                          <SelectItem value="regular">Regular</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="flex gap-2 pt-4">
-                      <Button className="flex-1">Simpan</Button>
-                      <Button variant="outline" onClick={() => setIsAddModalOpen(false)} className="flex-1">
-                        Batal
-                      </Button>
-                    </div>
-                  </div>
-                </DialogContent>
-              </Dialog>
-              <Button 
-                variant="outline"
-                className="flex items-center gap-2"
-                style={{
-                  borderColor: colors.gradientStart,
-                  color: colors.gradientStart
-                }}
-              >
-                <Download className="h-4 w-4" />
-                Export Excel
-              </Button>
+      {/* Header Card */}
+      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+        <CardHeader className="flex flex-row items-center justify-between bg-gradient-to-r from-[#00aaff] via-[#7b42f1] to-[#ff1a4a] p-6 rounded-t-lg">
+          <CardTitle className="text-white text-2xl font-bold">
+            Data Pelanggan
+          </CardTitle>
+          <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Input
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 md:w-64 bg-white"
+              />
             </div>
+            <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Customer
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Tambah Customer Baru</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="customerName">Nama Customer</Label>
+                    <Input id="customerName" placeholder="Masukkan nama customer" />
+                  </div>
+                  <div>
+                    <Label htmlFor="email">Email</Label>
+                    <Input id="email" type="email" placeholder="Masukkan email" />
+                  </div>
+                  <div>
+                    <Label htmlFor="type">Type</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Pilih type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="corporate">Corporate</SelectItem>
+                        <SelectItem value="individual">Individual</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="customerType">Customer Type</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Pilih customer type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="premium">Premium</SelectItem>
+                        <SelectItem value="regular">Regular</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex gap-2 pt-4">
+                    <Button className="flex-1">Simpan</Button>
+                    <Button variant="outline" onClick={() => setIsAddModalOpen(false)} className="flex-1">
+                      Batal
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+            <Button 
+              variant="outline"
+              className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 border-none"
+            >
+              <Download className="h-4 w-4 mr-2" />
+              Export Excel
+            </Button>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="rounded-lg border overflow-hidden">
+      </Card>
+
+      {/* Table Card */}
+      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+        <CardContent className="p-0">
+          <div className="rounded-lg border-0 overflow-hidden">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -248,10 +209,7 @@ const CustomerPage = () => {
                     <TableCell>
                       <Badge 
                         variant={customer.customerType === 'Premium' ? 'default' : 'secondary'}
-                        style={customer.customerType === 'Premium' ? {
-                          backgroundColor: colors.gradientStart,
-                          color: 'white'
-                        } : {}}
+                        className={customer.customerType === 'Premium' ? 'bg-gradient-to-r from-[#00aaff] to-[#7b42f1] text-white' : ''}
                       >
                         {customer.customerType}
                       </Badge>

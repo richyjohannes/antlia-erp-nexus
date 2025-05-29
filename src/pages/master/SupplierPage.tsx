@@ -202,62 +202,41 @@ export default function SupplierPage() {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Suppliers Table Card */}
-      <Card 
-        className="shadow-lg border-0"
-        style={{
-          background: `linear-gradient(135deg, ${colors.gradientStart}15, ${colors.gradientMiddle}15, ${colors.gradientEnd}15)`
-        }}
-      >
-        <CardHeader 
-          className="pb-4"
-          style={{
-            background: `linear-gradient(135deg, ${colors.gradientStart}25, ${colors.gradientMiddle}25)`
-          }}
-        >
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <CardTitle 
-              className="text-2xl font-bold"
-              style={{ color: colors.gradientStart }}
-            >
-              Data Supplier
-            </CardTitle>
-            <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input
-                  placeholder="Search by Code or Name"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 md:w-64"
-                />
-              </div>
-              <Button 
-                className="flex items-center gap-2 text-white border-0"
-                style={{
-                  background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                }}
-              >
-                <Plus className="h-4 w-4" />
-                Add Supplier
-              </Button>
-              <Button 
-                variant="outline"
-                onClick={handleExport}
-                className="flex items-center gap-2"
-                style={{
-                  borderColor: colors.gradientStart,
-                  color: colors.gradientStart
-                }}
-              >
-                <Download className="h-4 w-4" />
-                Download Excel
-              </Button>
+      {/* Header Card */}
+      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+        <CardHeader className="flex flex-row items-center justify-between bg-gradient-to-r from-[#00aaff] via-[#7b42f1] to-[#ff1a4a] p-6 rounded-t-lg">
+          <CardTitle className="text-white text-2xl font-bold">
+            Data Supplier
+          </CardTitle>
+          <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Input
+                placeholder="Search by Code or Name"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 md:w-64 bg-white"
+              />
             </div>
+            <Button className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+              <Plus className="h-4 w-4 mr-2" />
+              Add Supplier
+            </Button>
+            <Button 
+              onClick={handleExport}
+              className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 border-none"
+            >
+              <Download className="h-4 w-4 mr-2" />
+              Download Excel
+            </Button>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="rounded-lg border overflow-hidden">
+      </Card>
+
+      {/* Suppliers Table */}
+      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+        <CardContent className="p-0">
+          <div className="rounded-lg border-0 overflow-hidden">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -289,10 +268,7 @@ export default function SupplierPage() {
                     <TableCell>
                       <Badge 
                         variant={supplier.status === 'Active' ? 'default' : 'secondary'}
-                        style={supplier.status === 'Active' ? {
-                          backgroundColor: colors.gradientStart,
-                          color: 'white'
-                        } : {}}
+                        className={supplier.status === 'Active' ? 'bg-gradient-to-r from-[#00aaff] to-[#7b42f1] text-white' : ''}
                       >
                         {supplier.status}
                       </Badge>
