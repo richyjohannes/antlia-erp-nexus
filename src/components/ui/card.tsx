@@ -1,4 +1,6 @@
+
 import * as React from "react"
+import { useColors } from '@/contexts/ColorContext'
 
 import { cn } from "@/lib/utils"
 
@@ -19,14 +21,28 @@ Card.displayName = "Card"
 
 const CardHeader = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
-    {...props}
-  />
-))
+  React.HTMLAttributes<HTMLDivElement> & { gradient?: boolean }
+>(({ className, gradient, style, ...props }, ref) => {
+  const { colors } = useColors();
+  
+  const gradientStyle = gradient ? {
+    background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle}, ${colors.gradientEnd})`,
+    ...style
+  } : style;
+  
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "flex flex-col space-y-1.5 p-6",
+        gradient && "text-white",
+        className
+      )}
+      style={gradientStyle}
+      {...props}
+    />
+  );
+})
 CardHeader.displayName = "CardHeader"
 
 const CardTitle = React.forwardRef<
