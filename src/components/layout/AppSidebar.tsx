@@ -146,11 +146,11 @@ export function AppSidebar() {
         </div>
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent className="space-y-1">
         {/* Dashboard */}
-        <SidebarGroup>
+        <SidebarGroup className="py-1">
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-0.5">
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   asChild 
@@ -171,9 +171,9 @@ export function AppSidebar() {
         </SidebarGroup>
 
         {/* Master Data with Dropdown */}
-        <SidebarGroup>
+        <SidebarGroup className="py-1">
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-0.5">
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   onClick={() => toggleSection('master')}
@@ -215,9 +215,9 @@ export function AppSidebar() {
         </SidebarGroup>
 
         {/* User Management with Dropdown */}
-        <SidebarGroup>
+        <SidebarGroup className="py-1">
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-0.5">
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   onClick={() => toggleSection('userManagement')}
@@ -259,9 +259,9 @@ export function AppSidebar() {
         </SidebarGroup>
 
         {/* Procurement with Dropdown */}
-        <SidebarGroup>
+        <SidebarGroup className="py-1">
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-0.5">
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   onClick={() => toggleSection('procurement')}
@@ -303,9 +303,9 @@ export function AppSidebar() {
         </SidebarGroup>
 
         {/* Warehouse */}
-        <SidebarGroup>
+        <SidebarGroup className="py-1">
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-0.5">
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   onClick={() => toggleSection('warehouseLogistics')}
@@ -347,9 +347,9 @@ export function AppSidebar() {
         </SidebarGroup>
 
         {/* PPIC */}
-        <SidebarGroup>
+        <SidebarGroup className="py-1">
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-0.5">
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   onClick={() => toggleSection('ppic')}
@@ -391,9 +391,9 @@ export function AppSidebar() {
         </SidebarGroup>
 
         {/* Manufacture */}
-        <SidebarGroup>
+        <SidebarGroup className="py-1">
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-0.5">
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   onClick={() => toggleSection('manufacture')}
@@ -435,10 +435,10 @@ export function AppSidebar() {
         </SidebarGroup>
 
         {/* Other Modules */}
-        <SidebarGroup>
+        <SidebarGroup className="py-1">
           <SidebarGroupLabel>Other Modules</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-0.5">
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   asChild
@@ -596,7 +596,7 @@ export function AppSidebar() {
 
       <SidebarFooter>
         <div className="p-4">
-          <SidebarMenu>
+          <SidebarMenu className="space-y-0.5">
             <SidebarMenuItem>
               <SidebarMenuButton 
                 asChild

@@ -124,29 +124,39 @@ const UserRolePage = () => {
 
   return (
     <div className="p-6 space-y-6">
-      <Card>
-        <CardHeader>
-          <div className="flex justify-between items-center">
-            <div>
-              <CardTitle className="text-2xl font-bold">{t('userRoleManagement')}</CardTitle>
-              <CardDescription>{t('manageUserRolesAndPermissions')}</CardDescription>
-            </div>
-            <Button className="flex items-center gap-2 bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)]">
-              <Plus className="h-4 w-4" />
-              {t('addRole')}
-            </Button>
+      {/* Header Card */}
+      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+        <CardHeader className="flex flex-row items-center justify-between bg-gradient-to-r from-[#00aaff] via-[#7b42f1] to-[#ff1a4a] p-6 rounded-t-lg">
+          <div>
+            <CardTitle className="text-white text-2xl font-bold">{t('userRoleManagement')}</CardTitle>
+            <CardDescription className="text-blue-100">{t('manageUserRolesAndPermissions')}</CardDescription>
           </div>
+          <Button className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+            <Plus className="h-4 w-4 mr-2" />
+            {t('addRole')}
+          </Button>
         </CardHeader>
-        <CardContent>
+      </Card>
+
+      {/* Table Card */}
+      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+        <CardContent className="p-6">
           <div className="flex gap-4 mb-6">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4"
+                  style={{
+                    background: 'linear-gradient(135deg, #00aaff, #7b42f1)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text'
+                  }}
+                />
                 <Input
                   placeholder={t('searchRoles')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 border-2 focus:border-blue-400"
                 />
               </div>
             </div>
@@ -180,7 +190,14 @@ const UserRolePage = () => {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4 text-gray-500" />
+                      <Users className="h-4 w-4"
+                        style={{
+                          background: 'linear-gradient(135deg, #00aaff, #7b42f1)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text'
+                        }}
+                      />
                       {role.userCount}
                     </div>
                   </TableCell>
@@ -188,11 +205,25 @@ const UserRolePage = () => {
                   <TableCell>{role.createdDate}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button variant="ghost" size="icon">
-                        <Edit className="h-4 w-4" />
+                      <Button variant="ghost" size="icon" className="hover:bg-gradient-to-r hover:from-blue-100 hover:to-purple-100">
+                        <Edit className="h-4 w-4"
+                          style={{
+                            background: 'linear-gradient(135deg, #00aaff, #7b42f1)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text'
+                          }}
+                        />
                       </Button>
-                      <Button variant="ghost" size="icon" className="text-red-600 hover:text-red-800">
-                        <Trash2 className="h-4 w-4" />
+                      <Button variant="ghost" size="icon" className="hover:bg-gradient-to-r hover:from-red-100 hover:to-pink-100">
+                        <Trash2 className="h-4 w-4"
+                          style={{
+                            background: 'linear-gradient(135deg, #ff1a4a, #ff69b4)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text'
+                          }}
+                        />
                       </Button>
                     </div>
                   </TableCell>
@@ -210,16 +241,16 @@ const UserRolePage = () => {
       </Card>
 
       {/* Permission Matrix Card */}
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('permissionMatrix')}</CardTitle>
-          <CardDescription>{t('viewPermissionsByModule')}</CardDescription>
+      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+        <CardHeader className="bg-gradient-to-r from-[#00aaff] via-[#7b42f1] to-[#ff1a4a] p-6 rounded-t-lg">
+          <CardTitle className="text-white">{t('permissionMatrix')}</CardTitle>
+          <CardDescription className="text-blue-100">{t('viewPermissionsByModule')}</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="space-y-4">
             {[...new Set(permissions.map(p => p.module))].map(module => (
-              <div key={module} className="border rounded-lg p-4">
-                <h4 className="font-semibold mb-3">{module}</h4>
+              <div key={module} className="border-2 border-blue-200 rounded-lg p-4 bg-gradient-to-br from-blue-50 to-purple-50">
+                <h4 className="font-semibold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#00aaff] to-[#7b42f1]">{module}</h4>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                   {permissions.filter(p => p.module === module).map(permission => (
                     <div key={permission.id} className="flex items-center space-x-2">
