@@ -25,6 +25,10 @@ export function AppHeader() {
     navigate('/login');
   };
 
+  const handleProfileClick = () => {
+    navigate('/settings/profile');
+  };
+
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'id' : 'en';
     i18n.changeLanguage(newLang);
@@ -35,6 +39,7 @@ export function AppHeader() {
     
     if (path === '/dashboard') return t('dashboard');
     if (path === '/color-settings') return t('globalColorSettings');
+    if (path === '/settings/profile') return t('myProfile');
     
     // Master Data routes
     if (path.startsWith('/master-data/')) {
@@ -143,7 +148,7 @@ export function AppHeader() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleProfileClick}>
               <User className="mr-2 h-4 w-4" />
               {t('myProfile')}
             </DropdownMenuItem>

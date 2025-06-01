@@ -6,14 +6,25 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
-import { Warehouse, FileText, Users, Zap, Shield, Star, ChevronLeft, ChevronRight, Globe } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Warehouse, FileText, Users, Zap, Shield, Star, ChevronLeft, ChevronRight, Globe, AlertCircle } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 export function LoginPage() {
   const { t, i18n } = useTranslation();
+  const { toast } = useToast();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showInfo, setShowInfo] = useState(false);
   const [isIndonesian, setIsIndonesian] = useState(i18n.language === 'id');
+  const [showAccessDialog, setShowAccessDialog] = useState(false);
+  const [accessDeniedRole, setAccessDeniedRole] = useState('');
   const navigate = useNavigate();
 
   // Load saved language preference on component mount
@@ -27,6 +38,15 @@ export function LoginPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Check for customer or supplier login attempts
+    if ((username === 'customer' && password === 'customer') || 
+        (username === 'supplier' && password === 'supplier')) {
+      setAccessDeniedRole(username === 'customer' ? 'Customer' : 'Supplier');
+      setShowAccessDialog(true);
+      return;
+    }
+    
     // Save language preference before navigating
     localStorage.setItem('preferredLanguage', isIndonesian ? 'id' : 'en');
     navigate('/dashboard');
@@ -75,6 +95,55 @@ export function LoginPage() {
         background: 'linear-gradient(135deg, #05b2fd 0%, #6f42c1 50%, #cb4848 100%)'
       }}
     >
+      {/* Access Denied Dialog */}
+      <Dialog open={showAccessDialog} onOpenChange={setShowAccessDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <div className="flex items-center gap-3 mb-2">
+              <div 
+                className="w-12 h-12 rounded-full flex items-center justify-center"
+                style={{
+                  background: 'linear-gradient(135deg, #ff1a4a, #ff69b4)'
+                }}
+              >
+                <AlertCircle className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <DialogTitle 
+                  className="text-xl font-bold"
+                  style={{
+                    background: 'linear-gradient(135deg, #ff1a4a, #ff69b4)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text'
+                  }}
+                >
+                  Access Denied
+                </DialogTitle>
+              </div>
+            </div>
+            <DialogDescription className="text-gray-600 text-base leading-relaxed">
+              <strong>Not Access to Antlia ERP Dashboard</strong>
+              <br />
+              <br />
+              Your account role ({accessDeniedRole}) does not have permission to access the Antlia ERP Dashboard. Please contact your system administrator for assistance.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-end pt-4">
+            <Button
+              onClick={() => {
+                setShowAccessDialog(false);
+                setUsername('');
+                setPassword('');
+              }}
+              className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-2 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+            >
+              OK
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* Moving Stars Background */}
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(150)].map((_, i) => (

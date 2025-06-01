@@ -9,6 +9,7 @@ import { ColorProvider } from '@/contexts/ColorContext';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { ColorSettingsPage } from '@/components/ColorSettingsPage';
 import { LoginPage } from '@/components/LoginPage';
+import { SetProfile } from '@/pages/settings/SetProfile';
 import { UnderDevelopment } from '@/components/UnderDevelopment';
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -43,6 +44,13 @@ const App = () => (
             <Route path="/color-settings" element={
               <MainLayout>
                 <ColorSettingsPage />
+              </MainLayout>
+            } />
+            
+            {/* Settings Routes */}
+            <Route path="/settings/profile" element={
+              <MainLayout>
+                <SetProfile />
               </MainLayout>
             } />
             
