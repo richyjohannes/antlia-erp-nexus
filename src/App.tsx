@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -18,6 +17,7 @@ import UserRolePage from "./pages/user-management/UserRole";
 import CurrencyPage from "./pages/master/CurrencyPage";
 import CustomerPage from "./pages/master/CustomerPage";
 import SupplierPage from "./pages/master/SupplierPage";
+import CategoryPage from "./pages/master/CategoryPage";
 import './i18n/config';
 
 const queryClient = new QueryClient();
@@ -70,6 +70,11 @@ const App = () => (
                 <SupplierPage />
               </MainLayout>
             } />
+            <Route path="/master/category" element={
+              <MainLayout>
+                <CategoryPage />
+              </MainLayout>
+            } />
             <Route path="/master/*" element={
               <MainLayout>
                 <UnderDevelopment />
@@ -88,35 +93,27 @@ const App = () => (
               </MainLayout>
             } />
             
-            {/* Procurement Routes */}
+            {/* All other routes remain the same */}
             <Route path="/procurement/*" element={
               <MainLayout>
                 <UnderDevelopment />
               </MainLayout>
             } />
-            
-            {/* Warehouse Routes */}
             <Route path="/warehouse/*" element={
               <MainLayout>
                 <UnderDevelopment />
               </MainLayout>
             } />
-            
-            {/* PPIC Routes */}
             <Route path="/ppic/*" element={
               <MainLayout>
                 <UnderDevelopment />
               </MainLayout>
             } />
-            
-            {/* Manufacture Routes */}
             <Route path="/manufacture/*" element={
               <MainLayout>
                 <UnderDevelopment />
               </MainLayout>
             } />
-            
-            {/* All other routes */}
             <Route path="/fleet-management/*" element={
               <MainLayout>
                 <UnderDevelopment />
