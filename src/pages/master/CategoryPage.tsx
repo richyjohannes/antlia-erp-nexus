@@ -263,19 +263,24 @@ const CategoryPage = () => {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header with new gradient */}
+      {/* Header with transparent overlay for logo visibility */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#05b2fd] via-[#6f42c1] to-[#ff1a1a] p-8 text-white shadow-2xl">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="absolute top-0 right-0 -mt-4 -mr-4 h-32 w-32 rounded-full bg-white/10"></div>
-        <div className="absolute bottom-0 left-0 -mb-8 -ml-8 h-40 w-40 rounded-full bg-white/5"></div>
-        <div className="relative">
+        {/* Transparent overlay for better logo visibility */}
+        <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px]"></div>
+        
+        {/* Decorative elements with reduced opacity */}
+        <div className="absolute top-0 right-0 -mt-4 -mr-4 h-32 w-32 rounded-full bg-white/5"></div>
+        <div className="absolute bottom-0 left-0 -mb-8 -ml-8 h-40 w-40 rounded-full bg-white/3"></div>
+        
+        {/* Content with relative positioning */}
+        <div className="relative z-10">
           <div className="flex items-center gap-4 mb-4">
-            <div className="h-12 w-12 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
+            <div className="h-12 w-12 rounded-full bg-white/15 flex items-center justify-center backdrop-blur-sm border border-white/20">
               <Tag className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold">Category Management</h1>
-              <p className="text-white/80 mt-1">Manage your product categories in hierarchical structure</p>
+              <h1 className="text-3xl font-bold drop-shadow-sm">Category Management</h1>
+              <p className="text-white/90 mt-1 drop-shadow-sm">Manage your product categories in hierarchical structure</p>
             </div>
           </div>
         </div>
