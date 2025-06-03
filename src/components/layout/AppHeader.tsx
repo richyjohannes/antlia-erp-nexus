@@ -1,10 +1,11 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -12,14 +13,24 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator 
 } from '@/components/ui/dropdown-menu';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Bell, User, LogOut, Globe } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 export function AppHeader() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
+  const { toast } = useToast();
+  
+  const [isUsernameDialogOpen, setIsUsernameDialogOpen] = useState(false);
+  const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
+  const [newUsername, setNewUsername] = useState('admin');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleLogout = () => {
     navigate('/login');
@@ -32,6 +43,34 @@ export function AppHeader() {
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'id' : 'en';
     i18n.changeLanguage(newLang);
+  };
+
+  const handleUsernameUpdate = () => {
+    toast({
+      title: "Username Updated",
+      description: "Your username has been successfully updated.",
+    });
+    setIsUsernameDialogOpen(false);
+  };
+
+  const handlePasswordUpdate = () => {
+    if (newPassword !== confirmPassword) {
+      toast({
+        title: "Error",
+        description: "New passwords do not match.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    toast({
+      title: "Password Updated",
+      description: "Your password has been successfully updated.",
+    });
+    setIsPasswordDialogOpen(false);
+    setCurrentPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
   };
 
   const getPageTitle = () => {
@@ -79,108 +118,217 @@ export function AppHeader() {
   };
 
   return (
-    <header className="h-16 border-b bg-white px-4 flex items-center justify-between">
-      <div className="flex items-center gap-4">
-        <SidebarTrigger />
-        <h1 className="text-xl font-semibold text-gray-800">
-          {getPageTitle()}
-        </h1>
-      </div>
-      
-      <div className="flex items-center gap-4">
-        {/* Language Toggle */}
-        <div className="flex items-center gap-2">
-          <Globe className="h-4 w-4 text-gray-600" />
-          <span className="text-sm text-gray-600">EN</span>
-          <Switch
-            checked={i18n.language === 'id'}
-            onCheckedChange={toggleLanguage}
-            className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-[var(--gradient-start)] data-[state=checked]:to-[var(--gradient-middle)]"
-          />
-          <span className="text-sm text-gray-600">ID</span>
+    <>
+      <header className="h-16 border-b bg-white px-4 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <SidebarTrigger />
+          <h1 className="text-xl font-semibold text-gray-800">
+            {getPageTitle()}
+          </h1>
         </div>
+        
+        <div className="flex items-center gap-4">
+          {/* Language Toggle */}
+          <div className="flex items-center gap-2">
+            <Globe className="h-4 w-4 text-gray-600" />
+            <span className="text-sm text-gray-600">EN</span>
+            <Switch
+              checked={i18n.language === 'id'}
+              onCheckedChange={toggleLanguage}
+              className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-[var(--gradient-start)] data-[state=checked]:to-[var(--gradient-middle)]"
+            />
+            <span className="text-sm text-gray-600">ID</span>
+          </div>
 
-        {/* Notifications */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="relative">
-              <Bell className="h-5 w-5" />
-              <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)]">
-                3
-              </Badge>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-80">
-            <div className="p-3 border-b">
-              <h3 className="font-semibold">{t('notifications')}</h3>
+          {/* Notifications */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="relative">
+                <Bell className="h-5 w-5" />
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)]">
+                  3
+                </Badge>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-80">
+              <div className="p-3 border-b">
+                <h3 className="font-semibold">{t('notifications')}</h3>
+              </div>
+              <DropdownMenuItem>
+                <div className="flex flex-col gap-1">
+                  <p className="text-sm font-medium">New Purchase Order</p>
+                  <p className="text-xs text-gray-500">2 minutes ago</p>
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <div className="flex flex-col gap-1">
+                  <p className="text-sm font-medium">Low Stock Alert</p>
+                  <p className="text-xs text-gray-500">5 minutes ago</p>
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <div className="flex flex-col gap-1">
+                  <p className="text-sm font-medium">Payment Received</p>
+                  <p className="text-xs text-gray-500">10 minutes ago</p>
+                </div>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Profile Menu */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center gap-2">
+                <Avatar className="h-8 w-8">
+                  <AvatarFallback className="bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)] text-white">
+                    A
+                  </AvatarFallback>
+                </Avatar>
+                <span className="text-sm font-medium">Admin</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuItem onClick={handleProfileClick}>
+                <User className="mr-2 h-4 w-4" />
+                {t('myProfile')}
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <User className="mr-2 h-4 w-4" />
+                {t('checkIn')}
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <User className="mr-2 h-4 w-4" />
+                {t('attendanceReport')}
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <User className="mr-2 h-4 w-4" />
+                {t('changePhoto')}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setIsUsernameDialogOpen(true)}>
+                <User className="mr-2 h-4 w-4" />
+                {t('editUsername')}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setIsPasswordDialogOpen(true)}>
+                <User className="mr-2 h-4 w-4" />
+                {t('editPassword')}
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="text-red-600" onClick={handleLogout}>
+                <LogOut className="mr-2 h-4 w-4" />
+                {t('logout')}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </header>
+
+      {/* Edit Username Dialog */}
+      <Dialog open={isUsernameDialogOpen} onOpenChange={setIsUsernameDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-semibold bg-gradient-to-r from-[#05b2fd] via-[#6f42c1] to-[#ff1a1a] bg-clip-text text-transparent">
+              Edit Username
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 pt-4">
+            <div>
+              <Label htmlFor="username" className="text-sm font-medium text-gray-700">
+                New Username
+              </Label>
+              <Input
+                id="username"
+                value={newUsername}
+                onChange={(e) => setNewUsername(e.target.value)}
+                className="mt-1 border-2 focus:border-blue-400"
+                placeholder="Enter new username"
+              />
             </div>
-            <DropdownMenuItem>
-              <div className="flex flex-col gap-1">
-                <p className="text-sm font-medium">New Purchase Order</p>
-                <p className="text-xs text-gray-500">2 minutes ago</p>
-              </div>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <div className="flex flex-col gap-1">
-                <p className="text-sm font-medium">Low Stock Alert</p>
-                <p className="text-xs text-gray-500">5 minutes ago</p>
-              </div>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <div className="flex flex-col gap-1">
-                <p className="text-sm font-medium">Payment Received</p>
-                <p className="text-xs text-gray-500">10 minutes ago</p>
-              </div>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            <div className="flex gap-3 pt-4">
+              <Button
+                onClick={handleUsernameUpdate}
+                className="flex-1 bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+              >
+                Update Username
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setIsUsernameDialogOpen(false)}
+                className="flex-1 px-6 py-2 rounded-lg border-2 hover:bg-gray-50"
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
-        {/* Profile Menu */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="flex items-center gap-2">
-              <Avatar className="h-8 w-8">
-                <AvatarFallback className="bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)] text-white">
-                  A
-                </AvatarFallback>
-              </Avatar>
-              <span className="text-sm font-medium">Admin</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuItem onClick={handleProfileClick}>
-              <User className="mr-2 h-4 w-4" />
-              {t('myProfile')}
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <User className="mr-2 h-4 w-4" />
-              {t('checkIn')}
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <User className="mr-2 h-4 w-4" />
-              {t('attendanceReport')}
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <User className="mr-2 h-4 w-4" />
-              {t('changePhoto')}
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <User className="mr-2 h-4 w-4" />
-              {t('editUsername')}
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <User className="mr-2 h-4 w-4" />
-              {t('editPassword')}
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-red-600" onClick={handleLogout}>
-              <LogOut className="mr-2 h-4 w-4" />
-              {t('logout')}
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-    </header>
+      {/* Edit Password Dialog */}
+      <Dialog open={isPasswordDialogOpen} onOpenChange={setIsPasswordDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-semibold bg-gradient-to-r from-[#05b2fd] via-[#6f42c1] to-[#ff1a1a] bg-clip-text text-transparent">
+              Edit Password
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 pt-4">
+            <div>
+              <Label htmlFor="currentPassword" className="text-sm font-medium text-gray-700">
+                Current Password
+              </Label>
+              <Input
+                id="currentPassword"
+                type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                className="mt-1 border-2 focus:border-blue-400"
+                placeholder="Enter current password"
+              />
+            </div>
+            <div>
+              <Label htmlFor="newPassword" className="text-sm font-medium text-gray-700">
+                New Password
+              </Label>
+              <Input
+                id="newPassword"
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                className="mt-1 border-2 focus:border-blue-400"
+                placeholder="Enter new password"
+              />
+            </div>
+            <div>
+              <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
+                Confirm New Password
+              </Label>
+              <Input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="mt-1 border-2 focus:border-blue-400"
+                placeholder="Confirm new password"
+              />
+            </div>
+            <div className="flex gap-3 pt-4">
+              <Button
+                onClick={handlePasswordUpdate}
+                className="flex-1 bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+              >
+                Update Password
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setIsPasswordDialogOpen(false)}
+                className="flex-1 px-6 py-2 rounded-lg border-2 hover:bg-gray-50"
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

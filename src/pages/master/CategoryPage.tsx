@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -176,31 +175,31 @@ const CategoryPage = () => {
     return (
       <div key={category.id} className="w-full">
         <div 
-          className="flex items-center py-3 px-4 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 rounded-lg transition-all duration-200 group"
+          className="border-b border-gray-200 bg-white hover:bg-gray-50 transition-colors duration-200"
           style={{ paddingLeft: `${16 + indentSize}px` }}
         >
-          {hasChildren && (
-            <button
-              onClick={() => toggleExpanded(category.id)}
-              className="mr-2 p-1 hover:bg-white rounded transition-colors"
-            >
-              {category.isExpanded ? (
-                <ChevronDown className="h-4 w-4 text-gray-600" />
-              ) : (
-                <ChevronRight className="h-4 w-4 text-gray-600" />
+          <div className="flex items-center justify-between py-4 px-4">
+            <div className="flex items-center flex-1 min-w-0">
+              {hasChildren && (
+                <button
+                  onClick={() => toggleExpanded(category.id)}
+                  className="mr-2 p-1 hover:bg-gray-200 rounded transition-colors"
+                >
+                  {category.isExpanded ? (
+                    <ChevronDown className="h-4 w-4 text-gray-600" />
+                  ) : (
+                    <ChevronRight className="h-4 w-4 text-gray-600" />
+                  )}
+                </button>
               )}
-            </button>
-          )}
-          
-          {!hasChildren && <div className="w-6 mr-2" />}
-          
-          <div className="mr-3">
-            {renderCategoryIcon(category)}
-          </div>
-          
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
+              
+              {!hasChildren && <div className="w-6 mr-2" />}
+              
+              <div className="mr-3">
+                {renderCategoryIcon(category)}
+              </div>
+              
+              <div className="flex-1 min-w-0">
                 <h4 className="font-medium text-gray-900 truncate">
                   {category.name}
                 </h4>
@@ -211,31 +210,34 @@ const CategoryPage = () => {
                 )}
               </div>
               
-              <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="flex items-center gap-2 ml-4">
                 <Badge variant="outline" className="text-xs">
                   Level {category.level + 1}
                 </Badge>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="h-8 w-8 p-0 hover:bg-gradient-to-r hover:from-[#00d4ff] hover:to-[#8a2be2] hover:text-white"
-                >
-                  <Edit2 className="h-3 w-3" />
-                </Button>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="h-8 w-8 p-0 hover:bg-gradient-to-r hover:from-[#ff1a4a] hover:to-[#ff69b4] hover:text-white"
-                >
-                  <Trash2 className="h-3 w-3" />
-                </Button>
               </div>
+            </div>
+            
+            <div className="flex items-center gap-2 ml-4">
+              <Button
+                size="sm"
+                variant="ghost"
+                className="h-8 w-8 p-0 hover:bg-gradient-to-r hover:from-[#00d4ff] hover:to-[#8a2be2] hover:text-white"
+              >
+                <Edit2 className="h-3 w-3" />
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                className="h-8 w-8 p-0 hover:bg-gradient-to-r hover:from-[#ff1a4a] hover:to-[#ff69b4] hover:text-white"
+              >
+                <Trash2 className="h-3 w-3" />
+              </Button>
             </div>
           </div>
         </div>
         
         {hasChildren && category.isExpanded && category.children && (
-          <div className="ml-2">
+          <div>
             {category.children.map(child => renderTreeNode(child))}
           </div>
         )}
@@ -261,8 +263,8 @@ const CategoryPage = () => {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header with attractive background */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#667eea] via-[#764ba2] to-[#f093fb] p-8 text-white shadow-2xl">
+      {/* Header with new gradient */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#05b2fd] via-[#6f42c1] to-[#ff1a1a] p-8 text-white shadow-2xl">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="absolute top-0 right-0 -mt-4 -mr-4 h-32 w-32 rounded-full bg-white/10"></div>
         <div className="absolute bottom-0 left-0 -mb-8 -ml-8 h-40 w-40 rounded-full bg-white/5"></div>
@@ -345,7 +347,7 @@ const CategoryPage = () => {
         <CardContent className="p-0">
           <div className="max-h-[600px] overflow-y-auto">
             {filteredCategories.length > 0 ? (
-              <div className="p-4">
+              <div>
                 {filteredCategories.map(category => renderTreeNode(category))}
               </div>
             ) : (
