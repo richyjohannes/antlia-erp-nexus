@@ -168,22 +168,60 @@ const CategoryPage = () => {
     return <Tag className="h-4 w-4 text-green-500" />;
   };
 
-  const renderTreeNode = (category: Category) => {
+  const renderTreeLines = (category: Category, isLast: boolean = false) => {
+    const lines = [];
+    
+    // Vertical line for current level
+    if (category.level > 0) {
+      lines.push(
+        <div
+          key={`vertical-${category.level}`}
+          className="absolute border-l-2 border-gray-300"
+          style={{
+            left: `${16 + (category.level - 1) * 24 + 12}px`,
+            top: category.level === 1 ? '0px' : '-12px',
+            height: isLast ? '24px' : '36px'
+          }}
+        />
+      );
+      
+      // Horizontal line
+      lines.push(
+        <div
+          key={`horizontal-${category.level}`}
+          className="absolute border-t-2 border-gray-300"
+          style={{
+            left: `${16 + (category.level - 1) * 24 + 12}px`,
+            top: '24px',
+            width: '12px'
+          }}
+        />
+      );
+    }
+    
+    return lines;
+  };
+
+  const renderTreeNode = (category: Category, index: number, siblings: Category[]) => {
     const hasChildren = category.children && category.children.length > 0;
     const indentSize = category.level * 24;
+    const isLast = index === siblings.length - 1;
 
     return (
-      <div key={category.id} className="w-full">
+      <div key={category.id} className="relative">
+        {/* Tree connecting lines */}
+        {renderTreeLines(category, isLast)}
+        
         <div 
-          className="border-b border-gray-200 bg-white hover:bg-gray-50 transition-colors duration-200"
+          className="relative border-b border-gray-100 bg-white hover:bg-gray-50 transition-colors duration-200"
           style={{ paddingLeft: `${16 + indentSize}px` }}
         >
-          <div className="flex items-center justify-between py-4 px-4">
+          <div className="flex items-center justify-between py-2 px-4">
             <div className="flex items-center flex-1 min-w-0">
               {hasChildren && (
                 <button
                   onClick={() => toggleExpanded(category.id)}
-                  className="mr-2 p-1 hover:bg-gray-200 rounded transition-colors"
+                  className="mr-2 p-1 hover:bg-gray-200 rounded transition-colors z-10 relative"
                 >
                   {category.isExpanded ? (
                     <ChevronDown className="h-4 w-4 text-gray-600" />
@@ -195,16 +233,16 @@ const CategoryPage = () => {
               
               {!hasChildren && <div className="w-6 mr-2" />}
               
-              <div className="mr-3">
+              <div className="mr-3 z-10 relative">
                 {renderCategoryIcon(category)}
               </div>
               
               <div className="flex-1 min-w-0">
-                <h4 className="font-medium text-gray-900 truncate">
+                <h4 className="font-medium text-gray-900 truncate text-sm">
                   {category.name}
                 </h4>
                 {category.description && (
-                  <p className="text-sm text-gray-500 truncate">
+                  <p className="text-xs text-gray-500 truncate">
                     {category.description}
                   </p>
                 )}
@@ -221,14 +259,14 @@ const CategoryPage = () => {
               <Button
                 size="sm"
                 variant="ghost"
-                className="h-8 w-8 p-0 hover:bg-gradient-to-r hover:from-[#00d4ff] hover:to-[#8a2be2] hover:text-white"
+                className="h-7 w-7 p-0 hover:bg-gradient-to-r hover:from-[#00d4ff] hover:to-[#8a2be2] hover:text-white"
               >
                 <Edit2 className="h-3 w-3" />
               </Button>
               <Button
                 size="sm"
                 variant="ghost"
-                className="h-8 w-8 p-0 hover:bg-gradient-to-r hover:from-[#ff1a4a] hover:to-[#ff69b4] hover:text-white"
+                className="h-7 w-7 p-0 hover:bg-gradient-to-r hover:from-[#ff1a4a] hover:to-[#ff69b4] hover:text-white"
               >
                 <Trash2 className="h-3 w-3" />
               </Button>
@@ -237,8 +275,21 @@ const CategoryPage = () => {
         </div>
         
         {hasChildren && category.isExpanded && category.children && (
-          <div>
-            {category.children.map(child => renderTreeNode(child))}
+          <div className="relative">
+            {/* Vertical line for expanded children */}
+            {category.children.length > 0 && (
+              <div
+                className="absolute border-l-2 border-gray-300"
+                style={{
+                  left: `${16 + category.level * 24 + 12}px`,
+                  top: '0px',
+                  height: `${category.children.length * 48}px`
+                }}
+              />
+            )}
+            {category.children.map((child, childIndex) => 
+              renderTreeNode(child, childIndex, category.children!)
+            )}
           </div>
         )}
       </div>
@@ -343,7 +394,7 @@ const CategoryPage = () => {
 
       {/* Category Tree */}
       <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
-        <CardHeader className="bg-gradient-to-r from-[#00aaff] via-[#7b42f1] to-[#ff1a4a] p-6 rounded-t-lg">
+        <CardHeader className="bg-gradient-to-r from-[#05b2fd] via-[#6f42c1] to-[#ff1a1a] p-6 rounded-t-lg">
           <CardTitle className="text-white flex items-center gap-2">
             <Tag className="h-5 w-5" />
             Category Hierarchy
@@ -353,7 +404,9 @@ const CategoryPage = () => {
           <div className="max-h-[600px] overflow-y-auto">
             {filteredCategories.length > 0 ? (
               <div>
-                {filteredCategories.map(category => renderTreeNode(category))}
+                {filteredCategories.map((category, index) => 
+                  renderTreeNode(category, index, filteredCategories)
+                )}
               </div>
             ) : (
               <div className="p-8 text-center text-gray-500">
