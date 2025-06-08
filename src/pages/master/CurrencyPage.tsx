@@ -86,7 +86,10 @@ const CurrencyPage = () => {
     <div className="p-6 space-y-6">
       {/* Header Card for Currency Data */}
       <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
-        <CardHeader className="flex flex-row items-center justify-between bg-gradient-to-r from-[#00aaff] via-[#7b42f1] to-[#ff1a4a] p-6 rounded-t-lg">
+        <CardHeader 
+          className="flex flex-row items-center justify-between p-6 rounded-t-lg"
+          style={{ background: 'var(--theme-card-header-bg)' }}
+        >
           <CardTitle className="text-white text-2xl font-bold">
             Data Mata Uang
           </CardTitle>
@@ -203,7 +206,10 @@ const CurrencyPage = () => {
 
       {/* Header Card for Currency Rate Update BI */}
       <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
-        <CardHeader className="flex flex-row items-center justify-between bg-gradient-to-r from-[#00aaff] via-[#7b42f1] to-[#ff1a4a] p-6 rounded-t-lg">
+        <CardHeader 
+          className="flex flex-row items-center justify-between p-6 rounded-t-lg"
+          style={{ background: 'var(--theme-card-header-bg)' }}
+        >
           <CardTitle className="text-white text-2xl font-bold">
             Currency Rate Update BI
           </CardTitle>
