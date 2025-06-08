@@ -128,9 +128,15 @@ export function AppSidebar() {
   ];
 
   return (
-    <div style={{ background: 'var(--theme-sidebar-bg)' }} className="h-full">
-      <Sidebar>
-        <SidebarHeader style={{ background: 'var(--theme-sidebar-bg)' }}>
+    <div 
+      style={{ background: 'var(--theme-sidebar-bg)' }} 
+      className="h-full overflow-hidden"
+    >
+      <Sidebar className="border-0">
+        <SidebarHeader 
+          style={{ background: 'var(--theme-sidebar-bg)' }}
+          className="border-0"
+        >
           <div className="p-4">
             <Link to="/dashboard" className="flex items-center space-x-3">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/20 border border-white/30">
@@ -143,9 +149,12 @@ export function AppSidebar() {
           </div>
         </SidebarHeader>
 
-        <SidebarContent style={{ background: 'var(--theme-sidebar-bg)' }} className="space-y-1">
+        <SidebarContent 
+          style={{ background: 'var(--theme-sidebar-bg)' }} 
+          className="space-y-1 overflow-y-auto scrollbar-hide border-0"
+        >
           {/* Dashboard */}
-          <SidebarGroup className="py-1">
+          <SidebarGroup className="py-1 border-0">
             <SidebarGroupContent>
               <SidebarMenu className="space-y-0.5">
                 <SidebarMenuItem>
@@ -155,8 +164,8 @@ export function AppSidebar() {
                     className={location.pathname === '/dashboard' ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                   >
                     <Link to="/dashboard" className="flex items-center space-x-3">
-                      <LayoutDashboard className="h-4 w-4" />
-                      <span>{t('dashboard')}</span>
+                      <LayoutDashboard className="h-4 w-4 text-white" />
+                      <span className="text-white">{t('dashboard')}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -165,7 +174,7 @@ export function AppSidebar() {
           </SidebarGroup>
 
           {/* Master Data with Dropdown */}
-          <SidebarGroup className="py-1">
+          <SidebarGroup className="py-1 border-0">
             <SidebarGroupContent>
               <SidebarMenu className="space-y-0.5">
                 <SidebarMenuItem>
@@ -174,12 +183,12 @@ export function AppSidebar() {
                     className="flex items-center justify-between w-full text-white/80 hover:bg-white/10 hover:text-white"
                   >
                     <div className="flex items-center space-x-3">
-                      <Building2 className="h-4 w-4" />
-                      <span>{t('masterData')}</span>
+                      <Building2 className="h-4 w-4 text-white" />
+                      <span className="text-white">{t('masterData')}</span>
                     </div>
                     {openSections.includes('master') ? 
-                      <ChevronDown className="h-4 w-4" /> : 
-                      <ChevronRight className="h-4 w-4" />
+                      <ChevronDown className="h-4 w-4 text-white" /> : 
+                      <ChevronRight className="h-4 w-4 text-white" />
                     }
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -193,8 +202,8 @@ export function AppSidebar() {
                           className={location.pathname === item.url ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}
                         >
                           <Link to={item.url} className="flex items-center space-x-3">
-                            <item.icon className="h-4 w-4" />
-                            <span>{item.title}</span>
+                            <item.icon className="h-4 w-4 text-white" />
+                            <span className="text-white">{item.title}</span>
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
@@ -206,7 +215,7 @@ export function AppSidebar() {
           </SidebarGroup>
 
           {/* User Management with Dropdown */}
-          <SidebarGroup className="py-1">
+          <SidebarGroup className="py-1 border-0">
             <SidebarGroupContent>
               <SidebarMenu className="space-y-0.5">
                 <SidebarMenuItem>
@@ -215,12 +224,12 @@ export function AppSidebar() {
                     className="flex items-center justify-between w-full text-white/80 hover:bg-white/10 hover:text-white"
                   >
                     <div className="flex items-center space-x-3">
-                      <Users className="h-4 w-4" />
-                      <span>{t('userManagement')}</span>
+                      <Users className="h-4 w-4 text-white" />
+                      <span className="text-white">{t('userManagement')}</span>
                     </div>
                     {openSections.includes('userManagement') ? 
-                      <ChevronDown className="h-4 w-4" /> : 
-                      <ChevronRight className="h-4 w-4" />
+                      <ChevronDown className="h-4 w-4 text-white" /> : 
+                      <ChevronRight className="h-4 w-4 text-white" />
                     }
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -234,8 +243,8 @@ export function AppSidebar() {
                           className={location.pathname === item.url ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}
                         >
                           <Link to={item.url} className="flex items-center space-x-3">
-                            <item.icon className="h-4 w-4" />
-                            <span>{item.title}</span>
+                            <item.icon className="h-4 w-4 text-white" />
+                            <span className="text-white">{item.title}</span>
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
@@ -247,7 +256,7 @@ export function AppSidebar() {
           </SidebarGroup>
 
           {/* Procurement with Dropdown */}
-          <SidebarGroup className="py-1">
+          <SidebarGroup className="py-1 border-0">
             <SidebarGroupContent>
               <SidebarMenu className="space-y-0.5">
                 <SidebarMenuItem>
@@ -256,12 +265,12 @@ export function AppSidebar() {
                     className="flex items-center justify-between w-full text-white/80 hover:bg-white/10 hover:text-white"
                   >
                     <div className="flex items-center space-x-3">
-                      <ShoppingCart className="h-4 w-4" />
-                      <span>{t('procurement')}</span>
+                      <ShoppingCart className="h-4 w-4 text-white" />
+                      <span className="text-white">{t('procurement')}</span>
                     </div>
                     {openSections.includes('procurement') ? 
-                      <ChevronDown className="h-4 w-4" /> : 
-                      <ChevronRight className="h-4 w-4" />
+                      <ChevronDown className="h-4 w-4 text-white" /> : 
+                      <ChevronRight className="h-4 w-4 text-white" />
                     }
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -275,8 +284,8 @@ export function AppSidebar() {
                           className={location.pathname === item.url ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}
                         >
                           <Link to={item.url} className="flex items-center space-x-3">
-                            <item.icon className="h-4 w-4" />
-                            <span>{item.title}</span>
+                            <item.icon className="h-4 w-4 text-white" />
+                            <span className="text-white">{item.title}</span>
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
@@ -288,7 +297,7 @@ export function AppSidebar() {
           </SidebarGroup>
 
           {/* Warehouse */}
-          <SidebarGroup className="py-1">
+          <SidebarGroup className="py-1 border-0">
             <SidebarGroupContent>
               <SidebarMenu className="space-y-0.5">
                 <SidebarMenuItem>
@@ -297,12 +306,12 @@ export function AppSidebar() {
                     className="flex items-center justify-between w-full text-white/80 hover:bg-white/10 hover:text-white"
                   >
                     <div className="flex items-center space-x-3">
-                      <Warehouse className="h-4 w-4" />
-                      <span>{t('warehouseLogistics')}</span>
+                      <Warehouse className="h-4 w-4 text-white" />
+                      <span className="text-white">{t('warehouseLogistics')}</span>
                     </div>
                     {openSections.includes('warehouseLogistics') ? 
-                      <ChevronDown className="h-4 w-4" /> : 
-                      <ChevronRight className="h-4 w-4" />
+                      <ChevronDown className="h-4 w-4 text-white" /> : 
+                      <ChevronRight className="h-4 w-4 text-white" />
                     }
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -316,8 +325,8 @@ export function AppSidebar() {
                           className={location.pathname === item.url ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}
                         >
                           <Link to={item.url} className="flex items-center space-x-3">
-                            <item.icon className="h-4 w-4" />
-                            <span>{item.title}</span>
+                            <item.icon className="h-4 w-4 text-white" />
+                            <span className="text-white">{item.title}</span>
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
@@ -329,7 +338,7 @@ export function AppSidebar() {
           </SidebarGroup>
 
           {/* PPIC */}
-          <SidebarGroup className="py-1">
+          <SidebarGroup className="py-1 border-0">
             <SidebarGroupContent>
               <SidebarMenu className="space-y-0.5">
                 <SidebarMenuItem>
@@ -338,12 +347,12 @@ export function AppSidebar() {
                     className="flex items-center justify-between w-full text-white/80 hover:bg-white/10 hover:text-white"
                   >
                     <div className="flex items-center space-x-3">
-                      <Calendar className="h-4 w-4" />
-                      <span>{t('ppic')}</span>
+                      <Calendar className="h-4 w-4 text-white" />
+                      <span className="text-white">{t('ppic')}</span>
                     </div>
                     {openSections.includes('ppic') ? 
-                      <ChevronDown className="h-4 w-4" /> : 
-                      <ChevronRight className="h-4 w-4" />
+                      <ChevronDown className="h-4 w-4 text-white" /> : 
+                      <ChevronRight className="h-4 w-4 text-white" />
                     }
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -357,8 +366,8 @@ export function AppSidebar() {
                           className={location.pathname === item.url ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}
                         >
                           <Link to={item.url} className="flex items-center space-x-3">
-                            <item.icon className="h-4 w-4" />
-                            <span>{item.title}</span>
+                            <item.icon className="h-4 w-4 text-white" />
+                            <span className="text-white">{item.title}</span>
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
@@ -370,7 +379,7 @@ export function AppSidebar() {
           </SidebarGroup>
 
           {/* Manufacture */}
-          <SidebarGroup className="py-1">
+          <SidebarGroup className="py-1 border-0">
             <SidebarGroupContent>
               <SidebarMenu className="space-y-0.5">
                 <SidebarMenuItem>
@@ -379,12 +388,12 @@ export function AppSidebar() {
                     className="flex items-center justify-between w-full text-white/80 hover:bg-white/10 hover:text-white"
                   >
                     <div className="flex items-center space-x-3">
-                      <HardHat className="h-4 w-4" />
-                      <span>{t('manufacture')}</span>
+                      <HardHat className="h-4 w-4 text-white" />
+                      <span className="text-white">{t('manufacture')}</span>
                     </div>
                     {openSections.includes('manufacture') ? 
-                      <ChevronDown className="h-4 w-4" /> : 
-                      <ChevronRight className="h-4 w-4" />
+                      <ChevronDown className="h-4 w-4 text-white" /> : 
+                      <ChevronRight className="h-4 w-4 text-white" />
                     }
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -398,8 +407,8 @@ export function AppSidebar() {
                           className={location.pathname === item.url ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}
                         >
                           <Link to={item.url} className="flex items-center space-x-3">
-                            <item.icon className="h-4 w-4" />
-                            <span>{item.title}</span>
+                            <item.icon className="h-4 w-4 text-white" />
+                            <span className="text-white">{item.title}</span>
                           </Link>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
@@ -411,7 +420,7 @@ export function AppSidebar() {
           </SidebarGroup>
 
           {/* Other Modules */}
-          <SidebarGroup className="py-1">
+          <SidebarGroup className="py-1 border-0">
             <SidebarGroupLabel className="text-white/60">Other Modules</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu className="space-y-0.5">
@@ -422,8 +431,8 @@ export function AppSidebar() {
                     className={location.pathname.startsWith('/fleet-management') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                   >
                     <Link to="/fleet-management" className="flex items-center space-x-3">
-                      <Truck className="h-4 w-4" />
-                      <span>Fleet Management</span>
+                      <Truck className="h-4 w-4 text-white" />
+                      <span className="text-white">Fleet Management</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -434,8 +443,8 @@ export function AppSidebar() {
                     className={location.pathname.startsWith('/pos') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                   >
                     <Link to="/pos" className="flex items-center space-x-3">
-                      <CreditCard className="h-4 w-4" />
-                      <span>POS</span>
+                      <CreditCard className="h-4 w-4 text-white" />
+                      <span className="text-white">POS</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -446,8 +455,8 @@ export function AppSidebar() {
                     className={location.pathname.startsWith('/sales-order') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                   >
                     <Link to="/sales-order" className="flex items-center space-x-3">
-                      <ShoppingCart className="h-4 w-4" />
-                      <span>Sales Order</span>
+                      <ShoppingCart className="h-4 w-4 text-white" />
+                      <span className="text-white">Sales Order</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -458,8 +467,8 @@ export function AppSidebar() {
                     className={location.pathname.startsWith('/finance') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                   >
                     <Link to="/finance" className="flex items-center space-x-3">
-                      <CircleDollarSign className="h-4 w-4" />
-                      <span>Finance</span>
+                      <CircleDollarSign className="h-4 w-4 text-white" />
+                      <span className="text-white">Finance</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -470,8 +479,8 @@ export function AppSidebar() {
                     className={location.pathname.startsWith('/project-management') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                   >
                     <Link to="/project-management" className="flex items-center space-x-3">
-                      <ClipboardList className="h-4 w-4" />
-                      <span>Project Management</span>
+                      <ClipboardList className="h-4 w-4 text-white" />
+                      <span className="text-white">Project Management</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -482,8 +491,8 @@ export function AppSidebar() {
                     className={location.pathname.startsWith('/lead') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                   >
                     <Link to="/lead" className="flex items-center space-x-3">
-                      <Users className="h-4 w-4" />
-                      <span>Lead</span>
+                      <Users className="h-4 w-4 text-white" />
+                      <span className="text-white">Lead</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -494,8 +503,8 @@ export function AppSidebar() {
                     className={location.pathname.startsWith('/fixed-equipment') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                   >
                     <Link to="/fixed-equipment" className="flex items-center space-x-3">
-                      <Box className="h-4 w-4" />
-                      <span>Fixed Equipment</span>
+                      <Box className="h-4 w-4 text-white" />
+                      <span className="text-white">Fixed Equipment</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -506,8 +515,8 @@ export function AppSidebar() {
                     className={location.pathname.startsWith('/hr-records') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                   >
                     <Link to="/hr-records" className="flex items-center space-x-3">
-                      <Users className="h-4 w-4" />
-                      <span>HR Records</span>
+                      <Users className="h-4 w-4 text-white" />
+                      <span className="text-white">HR Records</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -518,8 +527,8 @@ export function AppSidebar() {
                     className={location.pathname.startsWith('/hr-payroll') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                   >
                     <Link to="/hr-payroll" className="flex items-center space-x-3">
-                      <CircleDollarSign className="h-4 w-4" />
-                      <span>HR Payroll</span>
+                      <CircleDollarSign className="h-4 w-4 text-white" />
+                      <span className="text-white">HR Payroll</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -530,8 +539,8 @@ export function AppSidebar() {
                     className={location.pathname.startsWith('/recruitment') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                   >
                     <Link to="/recruitment" className="flex items-center space-x-3">
-                      <Users className="h-4 w-4" />
-                      <span>Recruitment</span>
+                      <Users className="h-4 w-4 text-white" />
+                      <span className="text-white">Recruitment</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -540,7 +549,10 @@ export function AppSidebar() {
           </SidebarGroup>
         </SidebarContent>
 
-        <SidebarFooter style={{ background: 'var(--theme-sidebar-bg)' }}>
+        <SidebarFooter 
+          style={{ background: 'var(--theme-sidebar-bg)' }}
+          className="border-0"
+        >
           <div className="p-4">
             <SidebarMenu className="space-y-0.5">
               <SidebarMenuItem>
@@ -550,8 +562,8 @@ export function AppSidebar() {
                   className={location.pathname === '/setup' ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                 >
                   <Link to="/setup" className="flex items-center space-x-3">
-                    <Settings className="h-4 w-4" />
-                    <span>{t('setup')}</span>
+                    <Settings className="h-4 w-4 text-white" />
+                    <span className="text-white">{t('setup')}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -562,8 +574,8 @@ export function AppSidebar() {
                   className={location.pathname === '/color-settings' ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                 >
                   <Link to="/color-settings" className="flex items-center space-x-3">
-                    <Leaf className="h-4 w-4" />
-                    <span>{t('globalColorSettings')}</span>
+                    <Leaf className="h-4 w-4 text-white" />
+                    <span className="text-white">{t('globalColorSettings')}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

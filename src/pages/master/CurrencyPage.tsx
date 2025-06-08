@@ -1,6 +1,8 @@
+
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '@/contexts/ColorContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,6 +35,7 @@ interface CurrencyRate {
 const CurrencyPage = () => {
   const { t } = useTranslation();
   const { colors } = useColors();
+  const { isDark } = useTheme();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState('2024-01-15');
   const [searchTerm, setSearchTerm] = useState('');
@@ -51,7 +54,7 @@ const CurrencyPage = () => {
     { id: 2, currency: 'EUR', value: 16800, sell: 16850, buy: 16750, date: '2024-01-15' },
     { id: 3, currency: 'SGD', value: 11400, sell: 11450, buy: 11350, date: '2024-01-15' },
     { id: 4, currency: 'JPY', value: 104, sell: 106, buy: 102, date: '2024-01-15' },
-  ]);
+  ];
 
   const [newCurrency, setNewCurrency] = useState({
     code: '',
@@ -83,9 +86,18 @@ const CurrencyPage = () => {
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div 
+      className="p-6 space-y-6 min-h-screen"
+      style={{ 
+        backgroundColor: 'var(--theme-bg-main)',
+        color: 'var(--theme-text-primary)'
+      }}
+    >
       {/* Header Card for Currency Data */}
-      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+      <Card 
+        className="shadow-lg border-0"
+        style={{ backgroundColor: 'var(--theme-card-bg)' }}
+      >
         <CardHeader 
           className="flex flex-row items-center justify-between p-6 rounded-t-lg"
           style={{ background: 'var(--theme-card-header-bg)' }}
@@ -100,40 +112,73 @@ const CurrencyPage = () => {
                 Tambah Currency
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent 
+              className="border-0"
+              style={{ 
+                backgroundColor: 'var(--theme-card-bg)',
+                color: 'var(--theme-text-primary)'
+              }}
+            >
               <DialogHeader>
-                <DialogTitle>Tambah Mata Uang Baru</DialogTitle>
+                <DialogTitle 
+                  style={{ color: 'var(--theme-text-primary)' }}
+                >
+                  Tambah Mata Uang Baru
+                </DialogTitle>
               </DialogHeader>
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="code">Kode Mata Uang</Label>
+                  <Label htmlFor="code" style={{ color: 'var(--theme-text-primary)' }}>
+                    Kode Mata Uang
+                  </Label>
                   <Input
                     id="code"
                     value={newCurrency.code}
                     onChange={(e) => setNewCurrency({...newCurrency, code: e.target.value})}
                     placeholder="Contoh: USD"
+                    className="border-0"
+                    style={{ 
+                      backgroundColor: isDark ? '#334155' : '#f1f5f9',
+                      color: 'var(--theme-text-primary)'
+                    }}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="name">Nama</Label>
+                  <Label htmlFor="name" style={{ color: 'var(--theme-text-primary)' }}>
+                    Nama
+                  </Label>
                   <Input
                     id="name"
                     value={newCurrency.name}
                     onChange={(e) => setNewCurrency({...newCurrency, name: e.target.value})}
                     placeholder="Contoh: US Dollar"
+                    className="border-0"
+                    style={{ 
+                      backgroundColor: isDark ? '#334155' : '#f1f5f9',
+                      color: 'var(--theme-text-primary)'
+                    }}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="symbol">Simbol</Label>
+                  <Label htmlFor="symbol" style={{ color: 'var(--theme-text-primary)' }}>
+                    Simbol
+                  </Label>
                   <Input
                     id="symbol"
                     value={newCurrency.symbol}
                     onChange={(e) => setNewCurrency({...newCurrency, symbol: e.target.value})}
                     placeholder="Contoh: $"
+                    className="border-0"
+                    style={{ 
+                      backgroundColor: isDark ? '#334155' : '#f1f5f9',
+                      color: 'var(--theme-text-primary)'
+                    }}
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="default">Mata Uang Default</Label>
+                  <Label htmlFor="default" style={{ color: 'var(--theme-text-primary)' }}>
+                    Mata Uang Default
+                  </Label>
                   <Switch
                     id="default"
                     checked={newCurrency.isDefault}
@@ -153,26 +198,38 @@ const CurrencyPage = () => {
       </Card>
 
       {/* Currency Data Table */}
-      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+      <Card 
+        className="shadow-lg border-0"
+        style={{ backgroundColor: 'var(--theme-card-bg)' }}
+      >
         <CardContent className="p-0">
           <div className="rounded-lg border-0 overflow-hidden">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Kode</TableHead>
-                  <TableHead>Nama</TableHead>
-                  <TableHead>Simbol</TableHead>
-                  <TableHead>Default</TableHead>
-                  <TableHead>Aktif</TableHead>
-                  <TableHead>Aksi</TableHead>
+                  <TableHead style={{ color: 'var(--theme-text-primary)' }}>Kode</TableHead>
+                  <TableHead style={{ color: 'var(--theme-text-primary)' }}>Nama</TableHead>
+                  <TableHead style={{ color: 'var(--theme-text-primary)' }}>Simbol</TableHead>
+                  <TableHead style={{ color: 'var(--theme-text-primary)' }}>Default</TableHead>
+                  <TableHead style={{ color: 'var(--theme-text-primary)' }}>Aktif</TableHead>
+                  <TableHead style={{ color: 'var(--theme-text-primary)' }}>Aksi</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredCurrencies.map((currency) => (
                   <TableRow key={currency.id}>
-                    <TableCell className="font-medium">{currency.code}</TableCell>
-                    <TableCell>{currency.name}</TableCell>
-                    <TableCell>{currency.symbol}</TableCell>
+                    <TableCell 
+                      className="font-medium" 
+                      style={{ color: 'var(--theme-text-primary)' }}
+                    >
+                      {currency.code}
+                    </TableCell>
+                    <TableCell style={{ color: 'var(--theme-text-primary)' }}>
+                      {currency.name}
+                    </TableCell>
+                    <TableCell style={{ color: 'var(--theme-text-primary)' }}>
+                      {currency.symbol}
+                    </TableCell>
                     <TableCell>
                       {currency.isDefault && (
                         <Badge className="bg-gradient-to-r from-[#00aaff] to-[#7b42f1] text-white">
@@ -189,10 +246,10 @@ const CurrencyPage = () => {
                     <TableCell>
                       <div className="flex gap-2">
                         <Button variant="ghost" size="sm">
-                          <Edit className="h-4 w-4" />
+                          <Edit className="h-4 w-4" style={{ color: 'var(--theme-text-primary)' }} />
                         </Button>
                         <Button variant="ghost" size="sm">
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-4 w-4" style={{ color: 'var(--theme-text-primary)' }} />
                         </Button>
                       </div>
                     </TableCell>
@@ -205,7 +262,10 @@ const CurrencyPage = () => {
       </Card>
 
       {/* Header Card for Currency Rate Update BI */}
-      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+      <Card 
+        className="shadow-lg border-0"
+        style={{ backgroundColor: 'var(--theme-card-bg)' }}
+      >
         <CardHeader 
           className="flex flex-row items-center justify-between p-6 rounded-t-lg"
           style={{ background: 'var(--theme-card-header-bg)' }}
@@ -218,7 +278,7 @@ const CurrencyPage = () => {
               type="date"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="w-40 bg-white"
+              className="w-40 bg-white border-0"
             />
             <Button className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 border-none">
               <RefreshCw className="h-4 w-4 mr-2" />
@@ -229,28 +289,44 @@ const CurrencyPage = () => {
       </Card>
 
       {/* Currency Rate Update BI Table */}
-      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+      <Card 
+        className="shadow-lg border-0"
+        style={{ backgroundColor: 'var(--theme-card-bg)' }}
+      >
         <CardContent className="p-0">
           <div className="rounded-lg border-0 overflow-hidden">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Currency</TableHead>
-                  <TableHead>Value</TableHead>
-                  <TableHead>Sell</TableHead>
-                  <TableHead>Buy</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Add Currency</TableHead>
+                  <TableHead style={{ color: 'var(--theme-text-primary)' }}>Currency</TableHead>
+                  <TableHead style={{ color: 'var(--theme-text-primary)' }}>Value</TableHead>
+                  <TableHead style={{ color: 'var(--theme-text-primary)' }}>Sell</TableHead>
+                  <TableHead style={{ color: 'var(--theme-text-primary)' }}>Buy</TableHead>
+                  <TableHead style={{ color: 'var(--theme-text-primary)' }}>Date</TableHead>
+                  <TableHead style={{ color: 'var(--theme-text-primary)' }}>Add Currency</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {currencyRates.map((rate) => (
                   <TableRow key={rate.id}>
-                    <TableCell className="font-medium">{rate.currency}</TableCell>
-                    <TableCell>{rate.value.toLocaleString('id-ID')}</TableCell>
-                    <TableCell>{rate.sell.toLocaleString('id-ID')}</TableCell>
-                    <TableCell>{rate.buy.toLocaleString('id-ID')}</TableCell>
-                    <TableCell>{new Date(rate.date).toLocaleDateString('id-ID')}</TableCell>
+                    <TableCell 
+                      className="font-medium" 
+                      style={{ color: 'var(--theme-text-primary)' }}
+                    >
+                      {rate.currency}
+                    </TableCell>
+                    <TableCell style={{ color: 'var(--theme-text-primary)' }}>
+                      {rate.value.toLocaleString('id-ID')}
+                    </TableCell>
+                    <TableCell style={{ color: 'var(--theme-text-primary)' }}>
+                      {rate.sell.toLocaleString('id-ID')}
+                    </TableCell>
+                    <TableCell style={{ color: 'var(--theme-text-primary)' }}>
+                      {rate.buy.toLocaleString('id-ID')}
+                    </TableCell>
+                    <TableCell style={{ color: 'var(--theme-text-primary)' }}>
+                      {new Date(rate.date).toLocaleDateString('id-ID')}
+                    </TableCell>
                     <TableCell>
                       <Button 
                         size="sm"
