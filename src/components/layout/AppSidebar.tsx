@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '@/contexts/ColorContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import {
   Archive,
   BarChart3,
@@ -46,6 +47,7 @@ export function AppSidebar() {
   const { t } = useTranslation();
   const location = useLocation();
   const { colors } = useColors();
+  const { isDark } = useTheme();
   const [openSections, setOpenSections] = useState<string[]>(['master']);
 
   const toggleSection = (section: string) => {
@@ -126,20 +128,16 @@ export function AppSidebar() {
   ];
 
   return (
-    <Sidebar>
+    <Sidebar style={{ background: 'var(--theme-sidebar-bg)' }}>
       <SidebarHeader>
         <div className="p-4">
           <Link to="/dashboard" className="flex items-center space-x-3">
             <div 
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{ background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})` }}
+              className="w-8 h-8 rounded-lg flex items-center justify-center bg-white/20 border border-white/30"
             >
               <span className="text-white font-bold text-lg">A</span>
             </div>
-            <span 
-              className="text-xl font-bold"
-              style={{ color: colors.gradientStart }}
-            >
+            <span className="text-xl font-bold text-white">
               Antlia ERP
             </span>
           </Link>
@@ -155,10 +153,7 @@ export function AppSidebar() {
                 <SidebarMenuButton 
                   asChild 
                   isActive={location.pathname === '/dashboard'}
-                  className={location.pathname === '/dashboard' ? 'bg-gradient-to-r text-white' : ''}
-                  style={location.pathname === '/dashboard' ? {
-                    background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                  } : {}}
+                  className={location.pathname === '/dashboard' ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                 >
                   <Link to="/dashboard" className="flex items-center space-x-3">
                     <LayoutDashboard className="h-4 w-4" />
@@ -177,7 +172,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   onClick={() => toggleSection('master')}
-                  className="flex items-center justify-between w-full"
+                  className="flex items-center justify-between w-full text-white/80 hover:bg-white/10 hover:text-white"
                 >
                   <div className="flex items-center space-x-3">
                     <Building2 className="h-4 w-4" />
@@ -196,10 +191,7 @@ export function AppSidebar() {
                       <SidebarMenuButton 
                         asChild
                         isActive={location.pathname === item.url}
-                        className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
-                        style={location.pathname === item.url ? {
-                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                        } : {}}
+                        className={location.pathname === item.url ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}
                       >
                         <Link to={item.url} className="flex items-center space-x-3">
                           <item.icon className="h-4 w-4" />
@@ -221,7 +213,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   onClick={() => toggleSection('userManagement')}
-                  className="flex items-center justify-between w-full"
+                  className="flex items-center justify-between w-full text-white/80 hover:bg-white/10 hover:text-white"
                 >
                   <div className="flex items-center space-x-3">
                     <Users className="h-4 w-4" />
@@ -240,10 +232,7 @@ export function AppSidebar() {
                       <SidebarMenuButton 
                         asChild
                         isActive={location.pathname === item.url}
-                        className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
-                        style={location.pathname === item.url ? {
-                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                        } : {}}
+                        className={location.pathname === item.url ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}
                       >
                         <Link to={item.url} className="flex items-center space-x-3">
                           <item.icon className="h-4 w-4" />
@@ -265,7 +254,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   onClick={() => toggleSection('procurement')}
-                  className="flex items-center justify-between w-full"
+                  className="flex items-center justify-between w-full text-white/80 hover:bg-white/10 hover:text-white"
                 >
                   <div className="flex items-center space-x-3">
                     <ShoppingCart className="h-4 w-4" />
@@ -284,10 +273,7 @@ export function AppSidebar() {
                       <SidebarMenuButton 
                         asChild
                         isActive={location.pathname === item.url}
-                        className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
-                        style={location.pathname === item.url ? {
-                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                        } : {}}
+                        className={location.pathname === item.url ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}
                       >
                         <Link to={item.url} className="flex items-center space-x-3">
                           <item.icon className="h-4 w-4" />
@@ -309,7 +295,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   onClick={() => toggleSection('warehouseLogistics')}
-                  className="flex items-center justify-between w-full"
+                  className="flex items-center justify-between w-full text-white/80 hover:bg-white/10 hover:text-white"
                 >
                   <div className="flex items-center space-x-3">
                     <Warehouse className="h-4 w-4" />
@@ -328,10 +314,7 @@ export function AppSidebar() {
                       <SidebarMenuButton 
                         asChild
                         isActive={location.pathname === item.url}
-                        className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
-                        style={location.pathname === item.url ? {
-                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                        } : {}}
+                        className={location.pathname === item.url ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}
                       >
                         <Link to={item.url} className="flex items-center space-x-3">
                           <item.icon className="h-4 w-4" />
@@ -353,7 +336,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   onClick={() => toggleSection('ppic')}
-                  className="flex items-center justify-between w-full"
+                  className="flex items-center justify-between w-full text-white/80 hover:bg-white/10 hover:text-white"
                 >
                   <div className="flex items-center space-x-3">
                     <Calendar className="h-4 w-4" />
@@ -372,10 +355,7 @@ export function AppSidebar() {
                       <SidebarMenuButton 
                         asChild
                         isActive={location.pathname === item.url}
-                        className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
-                        style={location.pathname === item.url ? {
-                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                        } : {}}
+                        className={location.pathname === item.url ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}
                       >
                         <Link to={item.url} className="flex items-center space-x-3">
                           <item.icon className="h-4 w-4" />
@@ -397,7 +377,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   onClick={() => toggleSection('manufacture')}
-                  className="flex items-center justify-between w-full"
+                  className="flex items-center justify-between w-full text-white/80 hover:bg-white/10 hover:text-white"
                 >
                   <div className="flex items-center space-x-3">
                     <HardHat className="h-4 w-4" />
@@ -416,10 +396,7 @@ export function AppSidebar() {
                       <SidebarMenuButton 
                         asChild
                         isActive={location.pathname === item.url}
-                        className={location.pathname === item.url ? 'bg-gradient-to-r text-white' : ''}
-                        style={location.pathname === item.url ? {
-                          background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                        } : {}}
+                        className={location.pathname === item.url ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}
                       >
                         <Link to={item.url} className="flex items-center space-x-3">
                           <item.icon className="h-4 w-4" />
@@ -436,17 +413,14 @@ export function AppSidebar() {
 
         {/* Other Modules */}
         <SidebarGroup className="py-1">
-          <SidebarGroupLabel>Other Modules</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-white/60">Other Modules</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="space-y-0.5">
               <SidebarMenuItem>
                 <SidebarMenuButton 
                   asChild
                   isActive={location.pathname.startsWith('/fleet-management')}
-                  className={location.pathname.startsWith('/fleet-management') ? 'bg-gradient-to-r text-white' : ''}
-                  style={location.pathname.startsWith('/fleet-management') ? {
-                    background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                  } : {}}
+                  className={location.pathname.startsWith('/fleet-management') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                 >
                   <Link to="/fleet-management" className="flex items-center space-x-3">
                     <Truck className="h-4 w-4" />
@@ -458,10 +432,7 @@ export function AppSidebar() {
                 <SidebarMenuButton 
                   asChild
                   isActive={location.pathname.startsWith('/pos')}
-                  className={location.pathname.startsWith('/pos') ? 'bg-gradient-to-r text-white' : ''}
-                  style={location.pathname.startsWith('/pos') ? {
-                    background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                  } : {}}
+                  className={location.pathname.startsWith('/pos') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                 >
                   <Link to="/pos" className="flex items-center space-x-3">
                     <CreditCard className="h-4 w-4" />
@@ -473,10 +444,7 @@ export function AppSidebar() {
                 <SidebarMenuButton 
                   asChild
                   isActive={location.pathname.startsWith('/sales-order')}
-                  className={location.pathname.startsWith('/sales-order') ? 'bg-gradient-to-r text-white' : ''}
-                  style={location.pathname.startsWith('/sales-order') ? {
-                    background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                  } : {}}
+                  className={location.pathname.startsWith('/sales-order') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                 >
                   <Link to="/sales-order" className="flex items-center space-x-3">
                     <ShoppingCart className="h-4 w-4" />
@@ -488,10 +456,7 @@ export function AppSidebar() {
                 <SidebarMenuButton 
                   asChild
                   isActive={location.pathname.startsWith('/finance')}
-                  className={location.pathname.startsWith('/finance') ? 'bg-gradient-to-r text-white' : ''}
-                  style={location.pathname.startsWith('/finance') ? {
-                    background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                  } : {}}
+                  className={location.pathname.startsWith('/finance') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                 >
                   <Link to="/finance" className="flex items-center space-x-3">
                     <CircleDollarSign className="h-4 w-4" />
@@ -503,10 +468,7 @@ export function AppSidebar() {
                 <SidebarMenuButton 
                   asChild
                   isActive={location.pathname.startsWith('/project-management')}
-                  className={location.pathname.startsWith('/project-management') ? 'bg-gradient-to-r text-white' : ''}
-                  style={location.pathname.startsWith('/project-management') ? {
-                    background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                  } : {}}
+                  className={location.pathname.startsWith('/project-management') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                 >
                   <Link to="/project-management" className="flex items-center space-x-3">
                     <ClipboardList className="h-4 w-4" />
@@ -518,10 +480,7 @@ export function AppSidebar() {
                 <SidebarMenuButton 
                   asChild
                   isActive={location.pathname.startsWith('/lead')}
-                  className={location.pathname.startsWith('/lead') ? 'bg-gradient-to-r text-white' : ''}
-                  style={location.pathname.startsWith('/lead') ? {
-                    background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                  } : {}}
+                  className={location.pathname.startsWith('/lead') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                 >
                   <Link to="/lead" className="flex items-center space-x-3">
                     <Users className="h-4 w-4" />
@@ -533,10 +492,7 @@ export function AppSidebar() {
                 <SidebarMenuButton 
                   asChild
                   isActive={location.pathname.startsWith('/fixed-equipment')}
-                  className={location.pathname.startsWith('/fixed-equipment') ? 'bg-gradient-to-r text-white' : ''}
-                  style={location.pathname.startsWith('/fixed-equipment') ? {
-                    background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                  } : {}}
+                  className={location.pathname.startsWith('/fixed-equipment') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                 >
                   <Link to="/fixed-equipment" className="flex items-center space-x-3">
                     <Box className="h-4 w-4" />
@@ -548,10 +504,7 @@ export function AppSidebar() {
                 <SidebarMenuButton 
                   asChild
                   isActive={location.pathname.startsWith('/hr-records')}
-                  className={location.pathname.startsWith('/hr-records') ? 'bg-gradient-to-r text-white' : ''}
-                  style={location.pathname.startsWith('/hr-records') ? {
-                    background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                  } : {}}
+                  className={location.pathname.startsWith('/hr-records') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                 >
                   <Link to="/hr-records" className="flex items-center space-x-3">
                     <Users className="h-4 w-4" />
@@ -563,10 +516,7 @@ export function AppSidebar() {
                 <SidebarMenuButton 
                   asChild
                   isActive={location.pathname.startsWith('/hr-payroll')}
-                  className={location.pathname.startsWith('/hr-payroll') ? 'bg-gradient-to-r text-white' : ''}
-                  style={location.pathname.startsWith('/hr-payroll') ? {
-                    background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                  } : {}}
+                  className={location.pathname.startsWith('/hr-payroll') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                 >
                   <Link to="/hr-payroll" className="flex items-center space-x-3">
                     <CircleDollarSign className="h-4 w-4" />
@@ -578,10 +528,7 @@ export function AppSidebar() {
                 <SidebarMenuButton 
                   asChild
                   isActive={location.pathname.startsWith('/recruitment')}
-                  className={location.pathname.startsWith('/recruitment') ? 'bg-gradient-to-r text-white' : ''}
-                  style={location.pathname.startsWith('/recruitment') ? {
-                    background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                  } : {}}
+                  className={location.pathname.startsWith('/recruitment') ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
                 >
                   <Link to="/recruitment" className="flex items-center space-x-3">
                     <Users className="h-4 w-4" />
@@ -601,10 +548,7 @@ export function AppSidebar() {
               <SidebarMenuButton 
                 asChild
                 isActive={location.pathname === '/setup'}
-                className={location.pathname === '/setup' ? 'bg-gradient-to-r text-white' : ''}
-                style={location.pathname === '/setup' ? {
-                  background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                } : {}}
+                className={location.pathname === '/setup' ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
               >
                 <Link to="/setup" className="flex items-center space-x-3">
                   <Settings className="h-4 w-4" />
@@ -616,10 +560,7 @@ export function AppSidebar() {
               <SidebarMenuButton 
                 asChild
                 isActive={location.pathname === '/color-settings'}
-                className={location.pathname === '/color-settings' ? 'bg-gradient-to-r text-white' : ''}
-                style={location.pathname === '/color-settings' ? {
-                  background: `linear-gradient(135deg, ${colors.gradientStart}, ${colors.gradientMiddle})`
-                } : {}}
+                className={location.pathname === '/color-settings' ? 'bg-white/20 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}
               >
                 <Link to="/color-settings" className="flex items-center space-x-3">
                   <Leaf className="h-4 w-4" />

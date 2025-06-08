@@ -22,6 +22,7 @@ import {
   Folder,
   Tag
 } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface Category {
   id: string;
@@ -35,6 +36,7 @@ interface Category {
 
 const CategoryPage = () => {
   const { t } = useTranslation();
+  const { isDark } = useTheme();
   const [searchTerm, setSearchTerm] = useState('');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [categories, setCategories] = useState<Category[]>([
@@ -313,9 +315,9 @@ const CategoryPage = () => {
   );
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6" style={{ backgroundColor: 'var(--theme-bg-main)', minHeight: '100vh' }}>
       {/* Header with transparent overlay for logo visibility */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#05b2fd] via-[#6f42c1] to-[#ff1a1a] p-8 text-white shadow-2xl">
+      <div className="relative overflow-hidden rounded-2xl p-8 text-white shadow-2xl" style={{ background: 'var(--theme-card-header-bg)' }}>
         {/* Transparent overlay for better logo visibility */}
         <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px]"></div>
         
@@ -338,16 +340,28 @@ const CategoryPage = () => {
       </div>
 
       {/* Controls */}
-      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+      <Card 
+        className="shadow-lg border"
+        style={{ 
+          backgroundColor: 'var(--theme-card-bg)', 
+          borderColor: 'var(--theme-border)',
+          background: isDark ? 'linear-gradient(135deg, #1e293b, #334155)' : 'linear-gradient(135deg, #f8fafc, #f1f5f9)'
+        }}
+      >
         <CardContent className="p-6">
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" style={{ color: 'var(--theme-text-primary)' }} />
               <Input
                 placeholder="Search categories..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
+                style={{ 
+                  backgroundColor: 'var(--theme-card-bg)', 
+                  borderColor: 'var(--theme-border)',
+                  color: 'var(--theme-text-primary)'
+                }}
               />
             </div>
             
@@ -358,18 +372,18 @@ const CategoryPage = () => {
                   Add Category
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent style={{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-border)' }}>
                 <DialogHeader>
-                  <DialogTitle>Add New Category</DialogTitle>
+                  <DialogTitle style={{ color: 'var(--theme-text-primary)' }}>Add New Category</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4 pt-4">
                   <div>
-                    <label className="text-sm font-medium">Category Name</label>
-                    <Input placeholder="Enter category name" />
+                    <label className="text-sm font-medium" style={{ color: 'var(--theme-text-primary)' }}>Category Name</label>
+                    <Input placeholder="Enter category name" style={{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-border)', color: 'var(--theme-text-primary)' }} />
                   </div>
                   <div>
-                    <label className="text-sm font-medium">Description</label>
-                    <Input placeholder="Enter description" />
+                    <label className="text-sm font-medium" style={{ color: 'var(--theme-text-primary)' }}>Description</label>
+                    <Input placeholder="Enter description" style={{ backgroundColor: 'var(--theme-card-bg)', borderColor: 'var(--theme-border)', color: 'var(--theme-text-primary)' }} />
                   </div>
                   <div className="flex gap-2 pt-4">
                     <Button 
@@ -381,6 +395,7 @@ const CategoryPage = () => {
                     <Button 
                       variant="outline" 
                       onClick={() => setIsAddDialogOpen(false)}
+                      style={{ borderColor: 'var(--theme-border)', color: 'var(--theme-text-primary)' }}
                     >
                       Cancel
                     </Button>
@@ -393,8 +408,14 @@ const CategoryPage = () => {
       </Card>
 
       {/* Category Tree */}
-      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
-        <CardHeader className="bg-gradient-to-r from-[#05b2fd] via-[#6f42c1] to-[#ff1a1a] p-6 rounded-t-lg">
+      <Card 
+        className="shadow-lg border"
+        style={{ 
+          backgroundColor: 'var(--theme-card-bg)', 
+          borderColor: 'var(--theme-border)'
+        }}
+      >
+        <CardHeader className="p-6 rounded-t-lg" style={{ background: 'var(--theme-card-header-bg)' }}>
           <CardTitle className="text-white flex items-center gap-2">
             <Tag className="h-5 w-5" />
             Category Hierarchy
@@ -409,8 +430,8 @@ const CategoryPage = () => {
                 )}
               </div>
             ) : (
-              <div className="p-8 text-center text-gray-500">
-                <Tag className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+              <div className="p-8 text-center" style={{ color: 'var(--theme-text-primary)' }}>
+                <Tag className="h-12 w-12 mx-auto mb-4 opacity-50" />
                 <p>No categories found</p>
               </div>
             )}

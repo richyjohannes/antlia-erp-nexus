@@ -50,6 +50,15 @@
     --gradient-start: #05b2fd;
     --gradient-middle: #6f42c1;
     --gradient-end: #e17a9;
+
+    /* Theme Variables (default to light) */
+    --theme-header-bg: #05b2fd;
+    --theme-sidebar-bg: #05b2fd;
+    --theme-card-header-bg: #05b2fd;
+    --theme-text-primary: #1f2937;
+    --theme-bg-main: #f9fafb;
+    --theme-card-bg: #ffffff;
+    --theme-border: #e5e7eb;
   }
 
   .dark {

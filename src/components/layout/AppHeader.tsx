@@ -16,14 +16,16 @@ import {
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Bell, User, LogOut, Globe } from 'lucide-react';
+import { Bell, User, LogOut, Globe, Sun, Moon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export function AppHeader() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
+  const { isDark, toggleMode } = useTheme();
   
   const [isUsernameDialogOpen, setIsUsernameDialogOpen] = useState(false);
   const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
@@ -119,33 +121,46 @@ export function AppHeader() {
 
   return (
     <>
-      <header className="h-16 border-b bg-white px-4 flex items-center justify-between">
+      <header 
+        className="h-16 border-b px-4 flex items-center justify-between text-white"
+        style={{ background: 'var(--theme-header-bg)' }}
+      >
         <div className="flex items-center gap-4">
-          <SidebarTrigger />
-          <h1 className="text-xl font-semibold text-gray-800">
+          <SidebarTrigger className="text-white hover:bg-white/20" />
+          <h1 className="text-xl font-semibold text-white">
             {getPageTitle()}
           </h1>
         </div>
         
         <div className="flex items-center gap-4">
+          {/* Theme Toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleMode}
+            className="text-white hover:bg-white/20"
+          >
+            {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </Button>
+
           {/* Language Toggle */}
           <div className="flex items-center gap-2">
-            <Globe className="h-4 w-4 text-gray-600" />
-            <span className="text-sm text-gray-600">EN</span>
+            <Globe className="h-4 w-4 text-white" />
+            <span className="text-sm text-white">EN</span>
             <Switch
               checked={i18n.language === 'id'}
               onCheckedChange={toggleLanguage}
-              className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-[var(--gradient-start)] data-[state=checked]:to-[var(--gradient-middle)]"
+              className="data-[state=checked]:bg-white/30 data-[state=unchecked]:bg-white/20"
             />
-            <span className="text-sm text-gray-600">ID</span>
+            <span className="text-sm text-white">ID</span>
           </div>
 
           {/* Notifications */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="relative">
+              <Button variant="ghost" size="icon" className="relative text-white hover:bg-white/20">
                 <Bell className="h-5 w-5" />
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)]">
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-red-500 text-white">
                   3
                 </Badge>
               </Button>
@@ -178,9 +193,9 @@ export function AppHeader() {
           {/* Profile Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center gap-2">
+              <Button variant="ghost" className="flex items-center gap-2 text-white hover:bg-white/20">
                 <Avatar className="h-8 w-8">
-                  <AvatarFallback className="bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-middle)] text-white">
+                  <AvatarFallback className="bg-white/20 text-white border border-white/30">
                     A
                   </AvatarFallback>
                 </Avatar>
