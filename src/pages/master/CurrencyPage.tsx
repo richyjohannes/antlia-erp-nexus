@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useColors } from '@/contexts/ColorContext';
@@ -83,16 +84,28 @@ const CurrencyPage = () => {
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6" style={{ backgroundColor: 'var(--theme-bg-main)' }}>
       {/* Header Card for Currency Data */}
-      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
-        <CardHeader className="flex flex-row items-center justify-between bg-gradient-to-r from-[#00aaff] via-[#7b42f1] to-[#ff1a4a] p-6 rounded-t-lg">
-          <CardTitle className="text-white text-2xl font-bold">
+      <Card style={{ backgroundColor: 'var(--theme-card-bg)' }} className="shadow-lg border-0">
+        <CardHeader 
+          className="flex flex-row items-center justify-between p-6 rounded-t-lg"
+          style={{ 
+            background: 'var(--theme-card-header-bg)',
+            position: 'relative'
+          }}
+        >
+          <div 
+            className="absolute inset-0 bg-black/10 rounded-t-lg"
+            style={{ 
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))' 
+            }}
+          />
+          <CardTitle className="text-white text-2xl font-bold relative z-10">
             Data Mata Uang
           </CardTitle>
           <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+              <Button className="bg-gradient-to-r from-[#00d4ff] via-[#8a2be2] to-[#ff69b4] text-white hover:opacity-90 px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 relative z-10">
                 <Plus className="h-4 w-4 mr-2" />
                 Tambah Currency
               </Button>
@@ -150,7 +163,7 @@ const CurrencyPage = () => {
       </Card>
 
       {/* Currency Data Table */}
-      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+      <Card style={{ backgroundColor: 'var(--theme-card-bg)' }} className="shadow-lg border-0">
         <CardContent className="p-0">
           <div className="rounded-lg border-0 overflow-hidden">
             <Table>
@@ -202,12 +215,24 @@ const CurrencyPage = () => {
       </Card>
 
       {/* Header Card for Currency Rate Update BI */}
-      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
-        <CardHeader className="flex flex-row items-center justify-between bg-gradient-to-r from-[#00aaff] via-[#7b42f1] to-[#ff1a4a] p-6 rounded-t-lg">
-          <CardTitle className="text-white text-2xl font-bold">
+      <Card style={{ backgroundColor: 'var(--theme-card-bg)' }} className="shadow-lg border-0">
+        <CardHeader 
+          className="flex flex-row items-center justify-between p-6 rounded-t-lg"
+          style={{ 
+            background: 'var(--theme-card-header-bg)',
+            position: 'relative'
+          }}
+        >
+          <div 
+            className="absolute inset-0 bg-black/10 rounded-t-lg"
+            style={{ 
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))' 
+            }}
+          />
+          <CardTitle className="text-white text-2xl font-bold relative z-10">
             Currency Rate Update BI
           </CardTitle>
-          <div className="flex gap-2">
+          <div className="flex gap-2 relative z-10">
             <Input
               type="date"
               value={selectedDate}
@@ -223,7 +248,7 @@ const CurrencyPage = () => {
       </Card>
 
       {/* Currency Rate Update BI Table */}
-      <Card className="bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] shadow-lg">
+      <Card style={{ backgroundColor: 'var(--theme-card-bg)' }} className="shadow-lg border-0">
         <CardContent className="p-0">
           <div className="rounded-lg border-0 overflow-hidden">
             <Table>
